@@ -14,6 +14,9 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
+
+    implementation("org.slf4j:slf4j-log4j12:2.6.0")
+    implementation("net.dv8tion:JDA:5.0.0-beta.2")
 }
 
 tasks.test {
