@@ -15,7 +15,9 @@ repositories {
 dependencies {
     testImplementation(kotlin("test"))
 
-    implementation("org.slf4j:slf4j-log4j12:2.6.0")
+    implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
+
+    implementation("org.slf4j:slf4j-log4j12:2.0.6")
     implementation("net.dv8tion:JDA:5.0.0-beta.2")
 }
 
