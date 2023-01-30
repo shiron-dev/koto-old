@@ -18,7 +18,7 @@ dependencies {
 
     implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
 
-    runtimeOnly("mysql:mysql-connector-java:8.0.28")
+    implementation("org.xerial:sqlite-jdbc:3.40.0.0")
     implementation("org.hibernate.orm:hibernate-community-dialects:6.1.6.Final")
     implementation("org.hibernate:hibernate-core:6.2.0.CR2")
 

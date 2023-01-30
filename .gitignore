@@ -73,3 +73,6 @@ cmake-build-*/
 
 # File-based project format
 *.iws
+
+# sqlite
+*.db
