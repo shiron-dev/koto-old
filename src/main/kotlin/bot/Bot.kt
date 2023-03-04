@@ -1,4 +1,6 @@
-import command.hello.HelloCommand
+package bot
+
+import bot.command.hello.HelloCommand
 import io.github.cdimascio.dotenv.dotenv
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
