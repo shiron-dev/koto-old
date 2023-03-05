@@ -1,6 +1,7 @@
 package bot
 
 import bot.command.hello.HelloCommand
+import bot.user.RoleDao
 import bot.user.UserDao
 import io.github.cdimascio.dotenv.dotenv
 import net.dv8tion.jda.api.JDA
@@ -18,10 +19,11 @@ fun toEnvBoolean(value: String): Boolean {
 
 object Bot {
 
-    private lateinit var jda: JDA
+    lateinit var jda: JDA
     private val botToken: String = dotenv["TOKEN"]
 
     val userDao = UserDao()
+    val roleDao = RoleDao()
 
     init {
         try {

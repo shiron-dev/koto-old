@@ -1,6 +1,7 @@
 package bot.command
 
 import bot.Bot
+import bot.user.DiscordRole
 import bot.user.DiscordUser
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
@@ -34,20 +35,40 @@ abstract class Command : ListenerAdapter() {
                     u
                 }
 
-            if (user.userPermissions[commandPath].runnable) {
-                onSlashCommand(event, user)
-            } else {
-                onNotPermission(event, user)
+            if (!user.permissions[commandPath].runnable) {
+                event.hook.editOriginal("${event.user.asMention}には`$commandPath`を実行する権限がありません。").queue()
+                return
             }
+
+            val roles = event.guild!!.getMember(event.user)?.roles?.toMutableList() ?: run {
+                event.hook.editOriginal("ロール情報が取得できません。").queue()
+                return
+            }
+            // @everyone
+            roles.add(event.guild!!.publicRole)
+
+            for (role in roles) {
+                val discordRole = Bot.roleDao.findByDiscordRoleIdAndDiscordGuildId(
+                    role.idLong,
+                    event.guild!!.idLong
+                ) ?: run {
+                    val r = DiscordRole(discordRoleId = role.idLong, discordGuildId = event.guild!!.idLong)
+                    r.save()
+                    r
+                }
+                if (!discordRole.permissions[commandPath].runnable) {
+                    event.hook.editOriginal("${event.user.asMention}のロール、${role.asMention}によって`$commandPath`の実行が禁止されています。${discordRole.permissions[commandPath]}")
+                        .queue()
+                    return
+                }
+            }
+
+            onSlashCommand(event, user)
         }
     }
 
     abstract fun onSlashCommand(event: SlashCommandInteractionEvent, user: DiscordUser)
 
-    @Suppress("MemberVisibilityCanBePrivate", "UNUSED_PARAMETER")
-    fun onNotPermission(event: SlashCommandInteractionEvent, user: DiscordUser) {
-        event.hook.editOriginal("${event.user.asMention}には`$commandPath`を実行する権限がありません。").queue()
-    }
 }
 
 class CommandPath(commandPath: String) {
