@@ -2,6 +2,7 @@ package bot.user
 
 import hibernate.HibernateUtil
 
+@Suppress("unused")
 class UserDao {
     fun save(user: DiscordUser) {
         val session = HibernateUtil.getSession()
@@ -41,7 +42,7 @@ class UserDao {
         return users
     }
 
-    fun findByDiscordUserId(userId: String): DiscordUser? {
+    fun findByDiscordUserId(userId: Long): DiscordUser? {
         val session = HibernateUtil.getSession()
         val query = session.createQuery("FROM DiscordUser WHERE discordUserId = :userId", DiscordUser::class.java)
         query.setParameter("userId", userId)

@@ -1,5 +1,6 @@
 package bot.user
 
+import bot.Bot
 import jakarta.persistence.*
 import bot.permission.UserPermission
 
@@ -13,11 +14,12 @@ class DiscordUser {
     val id: Long = 0
 
     @Column(name = "discord_user_id", nullable = true)
-    var discordUserId: String? = null
-
-    @Column(name = "name", length = 32, nullable = true)
-    var userName: String? = null
+    var discordUserId: Long? = null
 
     @OneToOne(cascade = [CascadeType.ALL])
     val userPermissions: UserPermission = UserPermission()
+
+    fun save() {
+        Bot.userDao.save(this)
+    }
 }

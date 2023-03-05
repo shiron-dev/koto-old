@@ -1,6 +1,7 @@
 package bot
 
 import bot.command.hello.HelloCommand
+import bot.user.UserDao
 import io.github.cdimascio.dotenv.dotenv
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
@@ -15,10 +16,12 @@ fun toEnvBoolean(value: String): Boolean {
     return value == "True"
 }
 
-class Bot {
+object Bot {
 
     private lateinit var jda: JDA
     private val botToken: String = dotenv["TOKEN"]
+
+    val userDao = UserDao()
 
     init {
         try {
@@ -28,13 +31,12 @@ class Bot {
                 .build()
 
             jda.awaitReady()
-            onReady()
         } catch (e: LoginException) {
             e.printStackTrace()
         }
     }
 
-    private fun onReady() {
+    fun start() {
         if (toEnvBoolean(dotenv["DEV_FLAG"])) {
             // 開発モード
             val guild = jda.getGuildById(dotenv["DEV_GUILD"])

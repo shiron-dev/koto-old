@@ -15,7 +15,7 @@ class UserPermission(
 
     @Column(name = "permissions")
     @Convert(converter = PermissionsConverter::class)
-    var permissions: MutableMap<CommandPath, CommandPermission> = mutableMapOf()
+    private var permissions: MutableMap<CommandPath, CommandPermission> = mutableMapOf()
 ) {
 
     operator fun get(key: CommandPath): CommandPermission {
