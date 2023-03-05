@@ -1,5 +1,7 @@
 package bot.command
 
+import bot.Bot
+import bot.user.DiscordUser
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
 import net.dv8tion.jda.api.interactions.commands.build.Commands
@@ -7,21 +9,38 @@ import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData
 
 abstract class Command : ListenerAdapter() {
 
-    abstract val name: String
+    abstract val commandName: String
     abstract val description: String
     abstract val commandPath: CommandPath
 
     val slashCommandData: SlashCommandData
-        get() = Commands.slash(name, description)
+        get() = Commands.slash(commandName, description)
 
     override fun onSlashCommandInteraction(event: SlashCommandInteractionEvent) {
-        if (event.name == name) {
-            onSlashCommand(event)
+        if (event.name == commandName) {
+            event.deferReply().setEphemeral(true).queue()
+
+            val user = Bot.userDao.findByDiscordUserId(event.user.idLong) ?: run {
+                val u = DiscordUser()
+                u.discordUserId = event.user.idLong
+                u.save()
+                u
+            }
+
+            if (user.userPermissions[commandPath].runnable) {
+                onSlashCommand(event, user)
+            } else {
+                onNotPermission(event, user)
+            }
         }
     }
 
-    abstract fun onSlashCommand(event: SlashCommandInteractionEvent)
+    abstract fun onSlashCommand(event: SlashCommandInteractionEvent, user: DiscordUser)
 
+    @Suppress("MemberVisibilityCanBePrivate", "UNUSED_PARAMETER")
+    fun onNotPermission(event: SlashCommandInteractionEvent, user: DiscordUser) {
+        event.hook.editOriginal("${event.user.asMention}には`$commandPath`を実行する権限がありません。").queue()
+    }
 }
 
 class CommandPath(commandPath: String) {

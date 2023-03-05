@@ -1,12 +1,11 @@
-import bot.command.CommandPath
-import bot.user.DiscordUser
-import bot.user.UserDao
+import bot.Bot
 
 
 fun main(args: Array<String>) {
 
     println("Program arguments: ${args.joinToString()}")
 
+    /*
     val userDao = UserDao()
 
     // Create and save a new user
@@ -35,6 +34,7 @@ fun main(args: Array<String>) {
     } else {
         println("User with name $discordId not found")
     }
+    */
 
-    // Bot()
+    Bot.start()
 }
