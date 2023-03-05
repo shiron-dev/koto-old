@@ -4,7 +4,7 @@ import bot.Bot
 import jakarta.persistence.*
 import bot.permission.UserPermission
 
-@Entity()
+@Entity
 @Table(name = "users")
 class DiscordUser {
 
@@ -13,8 +13,11 @@ class DiscordUser {
     @Column(name = "id")
     val id: Long = 0
 
-    @Column(name = "discord_user_id", nullable = true)
+    @Column(name = "discord_user_id")
     var discordUserId: Long? = null
+
+    @Column(name = "discord_guild_id")
+    var discordGuildId: Long? = null
 
     @OneToOne(cascade = [CascadeType.ALL])
     val userPermissions: UserPermission = UserPermission()
