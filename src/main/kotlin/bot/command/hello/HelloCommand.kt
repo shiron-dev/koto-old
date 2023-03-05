@@ -11,6 +11,7 @@ class HelloCommand : Command() {
     override val commandPath = CommandPath("koto.util.hello")
 
     override fun onSlashCommand(event: SlashCommandInteractionEvent, user: DiscordUser) {
+//${event.guild?.publicRole?.asMention}
         event.hook.editOriginal("Hello ${event.user.asMention}!").queue()
     }
 }

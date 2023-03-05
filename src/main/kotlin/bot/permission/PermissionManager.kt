@@ -5,9 +5,9 @@ import bot.command.CommandPath
 import jakarta.persistence.*
 
 
-@Entity(name = "UserPermission")
-@Table(name = "user_permissions")
-class UserPermission(
+@Entity
+@Table(name = "permissions")
+class PermissionManager(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

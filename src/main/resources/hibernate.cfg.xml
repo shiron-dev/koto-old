@@ -15,7 +15,8 @@
         <property name="hbm2ddl.auto">update</property>
 
         <mapping class="bot.user.DiscordUser"/>
-        <mapping class="bot.permission.UserPermission"/>
+        <mapping class="bot.user.DiscordRole"/>
+        <mapping class="bot.permission.PermissionManager"/>
     </session-factory>
 
 </hibernate-configuration>
