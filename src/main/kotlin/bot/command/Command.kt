@@ -18,14 +18,21 @@ abstract class Command : ListenerAdapter() {
 
     override fun onSlashCommandInteraction(event: SlashCommandInteractionEvent) {
         if (event.name == commandName) {
+            if (event.guild == null) {
+                event.reply("サーバーの情報を取得できないため、コマンドが実行できません。").setEphemeral(true).queue()
+                return
+            }
+
             event.deferReply().setEphemeral(true).queue()
 
-            val user = Bot.userDao.findByDiscordUserId(event.user.idLong) ?: run {
-                val u = DiscordUser()
-                u.discordUserId = event.user.idLong
-                u.save()
-                u
-            }
+            val user = Bot.userDao.findByDiscordUserIdAndDiscordGuildId(event.user.idLong, event.guild!!.idLong)
+                ?: run {
+                    val u = DiscordUser()
+                    u.discordUserId = event.user.idLong
+                    u.discordGuildId = event.guild!!.idLong
+                    u.save()
+                    u
+                }
 
             if (user.userPermissions[commandPath].runnable) {
                 onSlashCommand(event, user)

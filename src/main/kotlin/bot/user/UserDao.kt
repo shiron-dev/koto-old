@@ -42,10 +42,14 @@ class UserDao {
         return users
     }
 
-    fun findByDiscordUserId(userId: Long): DiscordUser? {
+    fun findByDiscordUserIdAndDiscordGuildId(userId: Long, guildId: Long): DiscordUser? {
         val session = HibernateUtil.getSession()
-        val query = session.createQuery("FROM DiscordUser WHERE discordUserId = :userId", DiscordUser::class.java)
+        val query = session.createQuery(
+            "FROM DiscordUser WHERE discordUserId = :userId AND discordGuildId = :guildId",
+            DiscordUser::class.java
+        )
         query.setParameter("userId", userId)
+        query.setParameter("guildId", guildId)
         val user = query.setMaxResults(1).uniqueResult()
         HibernateUtil.closeSession()
         return user
