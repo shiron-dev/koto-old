@@ -1,4 +1,4 @@
-package bot.command.hello
+package bot.command.util
 
 import bot.command.Command
 import bot.command.CommandPath

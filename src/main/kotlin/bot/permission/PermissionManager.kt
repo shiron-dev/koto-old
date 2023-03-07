@@ -28,6 +28,10 @@ class PermissionManager(
     operator fun set(key: CommandPath, value: CommandPermission) {
         permissions[key] = value
     }
+
+    fun getPermissionsMap(): Map<CommandPath, CommandPermission> {
+        return permissions
+    }
 }
 
 @Converter

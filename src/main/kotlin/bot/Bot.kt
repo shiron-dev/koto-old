@@ -1,6 +1,7 @@
 package bot
 
-import bot.command.hello.HelloCommand
+import bot.command.Command
+import bot.command.util.HelloCommand
 import bot.user.RoleDao
 import bot.user.UserDao
 import io.github.cdimascio.dotenv.dotenv
@@ -25,6 +26,8 @@ object Bot {
     val userDao = UserDao()
     val roleDao = RoleDao()
 
+    val commands: List<Command> = listOf(HelloCommand())
+
     init {
         try {
             jda = JDABuilder.createDefault(botToken, GatewayIntent.GUILD_MESSAGES)
@@ -42,9 +45,11 @@ object Bot {
         if (toEnvBoolean(dotenv["DEV_FLAG"])) {
             // 開発モード
             val guild = jda.getGuildById(dotenv["DEV_GUILD"])
-            val helloCommand = HelloCommand()
-            jda.addEventListener(helloCommand)
-            guild?.updateCommands()?.addCommands(helloCommand.slashCommandData)?.queue()
+            for (cmd in commands) {
+                jda.addEventListener(cmd)
+            }
+            guild?.updateCommands()
+                ?.addCommands(commands.map { it.slashCommandData })?.queue()
         } else {
             // 本番モード
         }

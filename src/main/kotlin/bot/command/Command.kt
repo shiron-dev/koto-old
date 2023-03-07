@@ -1,11 +1,11 @@
 package bot.command
 
 import bot.Bot
-import bot.user.DiscordRole
 import bot.user.DiscordUser
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
 import net.dv8tion.jda.api.interactions.commands.build.Commands
+import net.dv8tion.jda.api.interactions.commands.build.OptionData
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData
 
 abstract class Command : ListenerAdapter() {
@@ -13,9 +13,10 @@ abstract class Command : ListenerAdapter() {
     abstract val commandName: String
     abstract val description: String
     abstract val commandPath: CommandPath
+    open val commandOptions: List<OptionData> = listOf()
 
-    val slashCommandData: SlashCommandData
-        get() = Commands.slash(commandName, description)
+    open val slashCommandData: SlashCommandData
+        get() = Commands.slash(commandName, description).addOptions(commandOptions)
 
     override fun onSlashCommandInteraction(event: SlashCommandInteractionEvent) {
         if (event.name == commandName) {
@@ -26,14 +27,7 @@ abstract class Command : ListenerAdapter() {
 
             event.deferReply().setEphemeral(true).queue()
 
-            val user = Bot.userDao.findByDiscordUserIdAndDiscordGuildId(event.user.idLong, event.guild!!.idLong)
-                ?: run {
-                    val u = DiscordUser()
-                    u.discordUserId = event.user.idLong
-                    u.discordGuildId = event.guild!!.idLong
-                    u.save()
-                    u
-                }
+            val user = Bot.userDao.findByDiscordUserIdAndDiscordGuildIdOrMake(event.user.idLong, event.guild!!.idLong)
 
             if (!user.permissions[commandPath].runnable) {
                 event.hook.editOriginal("${event.user.asMention}には`$commandPath`を実行する権限がありません。").queue()
@@ -48,14 +42,10 @@ abstract class Command : ListenerAdapter() {
             roles.add(event.guild!!.publicRole)
 
             for (role in roles) {
-                val discordRole = Bot.roleDao.findByDiscordRoleIdAndDiscordGuildId(
+                val discordRole = Bot.roleDao.findByDiscordRoleIdAndDiscordGuildIdOrMake(
                     role.idLong,
                     event.guild!!.idLong
-                ) ?: run {
-                    val r = DiscordRole(discordRoleId = role.idLong, discordGuildId = event.guild!!.idLong)
-                    r.save()
-                    r
-                }
+                )
                 if (!discordRole.permissions[commandPath].runnable) {
                     event.hook.editOriginal("${event.user.asMention}のロール、${role.asMention}によって`$commandPath`の実行が禁止されています。${discordRole.permissions[commandPath]}")
                         .queue()
@@ -75,25 +65,27 @@ class CommandPath(commandPath: String) {
     val base: String
     val category: String
     val commandName: String
+    val subcommandName: String?
 
     init {
         val token = commandPath.split(".")
         base = token[0]
         category = token[1]
         commandName = token[2]
+        subcommandName = token.getOrNull(3)
     }
 
     override fun toString(): String {
-        return "$base.$category.$commandName"
+        return "$base.$category.$commandName${subcommandName?.let { ".$it" } ?: ""}"
     }
 
     override fun hashCode(): Int {
-        return (this.base.hashCode() * 31 + this.category.hashCode()) * 31 + this.commandName.hashCode()
+        return ((this.base.hashCode() * 31 + this.category.hashCode()) * 31 + this.commandName.hashCode()) * 31 + this.subcommandName.hashCode()
     }
 
     override fun equals(other: Any?): Boolean {
         if (other === this) return true
         if (other !is CommandPath) return false
-        return this.base == other.base && this.category == other.category && this.commandName == other.commandName
+        return this.base == other.base && this.category == other.category && this.commandName == other.commandName && this.subcommandName == other.subcommandName
     }
 }
