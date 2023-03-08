@@ -1,7 +1,7 @@
 package bot.permission
 
-data class CommandPermission(var runnable: Boolean, var isDefault: Boolean = false) {
+data class CommandPermission(var runnable: Boolean?, var viewable: Boolean?) {
     companion object {
-        val NullPermission = CommandPermission(runnable = false)
+        val NullPermission = CommandPermission(runnable = null, viewable = null)
     }
 }

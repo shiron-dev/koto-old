@@ -1,12 +1,14 @@
 package bot.command
 
 import bot.Bot
+import bot.permission.permissionCheck
 import bot.user.DiscordUser
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
 import net.dv8tion.jda.api.interactions.commands.build.Commands
 import net.dv8tion.jda.api.interactions.commands.build.OptionData
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData
+import java.io.IOException
 
 abstract class Command : ListenerAdapter() {
 
@@ -29,31 +31,23 @@ abstract class Command : ListenerAdapter() {
 
             val user = Bot.userDao.findByDiscordUserIdAndDiscordGuildIdOrMake(event.user.idLong, event.guild!!.idLong)
 
-            if (!user.permissions[commandPath].runnable) {
-                event.hook.editOriginal("${event.user.asMention}には`$commandPath`を実行する権限がありません。").queue()
-                return
-            }
+            try {
+                val permission = permissionCheck(commandPath, event.user.idLong, event.guild!!.idLong, user)
 
-            val roles = event.guild!!.getMember(event.user)?.roles?.toMutableList() ?: run {
-                event.hook.editOriginal("ロール情報が取得できません。").queue()
-                return
-            }
-            // @everyone
-            roles.add(event.guild!!.publicRole)
-
-            for (role in roles) {
-                val discordRole = Bot.roleDao.findByDiscordRoleIdAndDiscordGuildIdOrMake(
-                    role.idLong,
-                    event.guild!!.idLong
-                )
-                if (!discordRole.permissions[commandPath].runnable) {
-                    event.hook.editOriginal("${event.user.asMention}のロール、${role.asMention}によって`$commandPath`の実行が禁止されています。${discordRole.permissions[commandPath]}")
-                        .queue()
-                    return
+                if (permission.viewable == true) {
+                    if (permission.runnable == true) {
+                        onSlashCommand(event, user)
+                    } else {
+                        event.hook.editOriginal("${event.user.asMention}はサーバーによって`$commandPath`の実行が禁止されています。")
+                            .queue()
+                    }
+                } else {
+                    event.hook.editOriginal("コマンドが見つかりません。").queue()
                 }
-            }
 
-            onSlashCommand(event, user)
+            } catch (e: IOException) {
+                event.hook.editOriginal("ロール情報が取得できません。").queue()
+            }
         }
     }
 
