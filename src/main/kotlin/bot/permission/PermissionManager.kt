@@ -19,10 +19,7 @@ class PermissionManager(
 ) {
 
     operator fun get(key: CommandPath): CommandPermission {
-        return permissions.getOrDefault(
-            key,
-            DefaultPermissions.getDefaultPermission(key) ?: CommandPermission.NullPermission
-        ).also { permissions[key] = it }
+        return CommandPermission.NullPermission.also { permissions[key] = it }
     }
 
     operator fun set(key: CommandPath, value: CommandPermission) {
