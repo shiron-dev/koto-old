@@ -1,6 +1,7 @@
 package bot
 
 import bot.command.Command
+import bot.command.core.permission.PermissionCommand
 import bot.command.util.HelloCommand
 import bot.user.RoleDao
 import bot.user.UserDao
@@ -26,7 +27,7 @@ object Bot {
     val userDao = UserDao()
     val roleDao = RoleDao()
 
-    val commands: List<Command> = listOf(HelloCommand())
+    val commands: List<Command> = listOf(HelloCommand(), PermissionCommand())
 
     init {
         try {
@@ -42,6 +43,8 @@ object Bot {
     }
 
     fun start() {
+//        jda.getGuildById(1050251870649724999)?.getTextChannelById(1074241417158873118)
+//            ?.sendMessage("https://www.youtube.com/watch?v=OVuYIMa5XBw")?.queue()
         if (toEnvBoolean(dotenv["DEV_FLAG"])) {
             // 開発モード
             val guild = jda.getGuildById(dotenv["DEV_GUILD"])
@@ -50,6 +53,8 @@ object Bot {
             }
             guild?.updateCommands()
                 ?.addCommands(commands.map { it.slashCommandData })?.queue()
+
+            guild?.getTextChannelById(dotenv["DEV_CHANNEL"])?.sendMessage("Started")?.queue()
         } else {
             // 本番モード
         }

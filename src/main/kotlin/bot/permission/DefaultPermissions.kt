@@ -10,6 +10,7 @@ class DefaultPermissions {
         fun getDefaultPermission(commandPath: CommandPath): CommandPermission? {
             return when (commandPath) {
                 CommandPath("koto.util.hello") -> CommandPermission(runnable = true, viewable = true)
+                CommandPath("koto.core.permission") -> CommandPermission(runnable = true, viewable = true)
                 else -> {
                     null
                 }
