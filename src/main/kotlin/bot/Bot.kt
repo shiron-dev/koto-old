@@ -1,6 +1,7 @@
 package bot
 
 import bot.command.Command
+import bot.command.core.permission.PermissionCommand
 import bot.command.util.HelloCommand
 import bot.user.RoleDao
 import bot.user.UserDao
@@ -26,7 +27,7 @@ object Bot {
     val userDao = UserDao()
     val roleDao = RoleDao()
 
-    val commands: List<Command> = listOf(HelloCommand())
+    val commands: List<Command> = listOf(HelloCommand(), PermissionCommand())
 
     init {
         try {
@@ -50,6 +51,8 @@ object Bot {
             }
             guild?.updateCommands()
                 ?.addCommands(commands.map { it.slashCommandData })?.queue()
+
+            guild?.getTextChannelById(dotenv["DEV_CHANNEL"])?.sendMessage("Started")?.queue()
         } else {
             // 本番モード
         }
