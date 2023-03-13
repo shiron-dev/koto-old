@@ -20,6 +20,11 @@ class ListCommand : Subcommand() {
         val user = event.getOption("user")?.asUser
         val role = event.getOption("role")?.asRole
 
+        if (user != null && role != null) {
+            event.hook.editOriginal("`user`または`role`のどちらか一方のみを指定してください。").queue()
+            return
+        }
+
         val target = user ?: role
 
         val permissionMap = user?.let {

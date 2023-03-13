@@ -1,13 +1,22 @@
 package bot.user
 
+import bot.Bot
 import hibernate.HibernateUtil
 
 @Suppress("unused")
 class UserDao {
-    fun save(user: DiscordUser) {
+    fun createSave(user: DiscordUser) {
         val session = HibernateUtil.getSession()
         val tx = session.beginTransaction()
         session.persist(user)
+        tx.commit()
+        HibernateUtil.closeSession()
+    }
+
+    fun save(user: DiscordUser) {
+        val session = HibernateUtil.getSession()
+        val tx = session.beginTransaction()
+        session.merge(user)
         tx.commit()
         HibernateUtil.closeSession()
     }
@@ -57,10 +66,8 @@ class UserDao {
 
     fun findByDiscordUserIdAndDiscordGuildIdOrMake(userId: Long, guildId: Long): DiscordUser {
         return findByDiscordUserIdAndDiscordGuildId(userId, guildId) ?: run {
-            val u = DiscordUser()
-            u.discordUserId = userId
-            u.discordGuildId = guildId
-            u.save()
+            val u = DiscordUser(discordUserId = userId, discordGuildId = guildId)
+            Bot.userDao.createSave(u)
             u
         }
     }
