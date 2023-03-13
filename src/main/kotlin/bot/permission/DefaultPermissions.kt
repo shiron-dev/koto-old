@@ -1,5 +1,6 @@
 package bot.permission
 
+import bot.Bot
 import bot.command.CommandPath
 
 class DefaultPermissions {
@@ -15,6 +16,14 @@ class DefaultPermissions {
                     null
                 }
             }
+        }
+
+        fun getDefaultPermissionManager(): PermissionManager {
+            val pm = PermissionManager()
+            for (cmd in Bot.commands) {
+                pm[cmd.commandPath] = getDefaultPermission(cmd.commandPath) ?: allFalse
+            }
+            return pm
         }
     }
 }

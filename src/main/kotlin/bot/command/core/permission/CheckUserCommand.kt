@@ -19,7 +19,7 @@ class CheckUserCommand : Subcommand() {
 
     override fun onSubcommand(event: SlashCommandInteractionEvent, data: CommandEventData) {
         val user = event.getOption("user")?.asUser ?: run {
-            event.hook.editOriginal("引数`user`を確認できません。")
+            event.hook.editOriginal("引数`user`を確認できません。").queue()
             return
         }
         val permissionManager = PermissionManager()
