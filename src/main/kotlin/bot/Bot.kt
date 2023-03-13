@@ -24,6 +24,8 @@ object Bot {
     lateinit var jda: JDA
     private val botToken: String = dotenv["TOKEN"]
 
+    val isDevMode = toEnvBoolean(dotenv["DEV_FLAG"])
+
     val userDao = UserDao()
     val roleDao = RoleDao()
 
@@ -45,7 +47,7 @@ object Bot {
     fun start() {
 //        jda.getGuildById(1050251870649724999)?.getTextChannelById(1074241417158873118)
 //            ?.sendMessage("https://www.youtube.com/watch?v=OVuYIMa5XBw")?.queue()
-        if (toEnvBoolean(dotenv["DEV_FLAG"])) {
+        if (isDevMode) {
             // 開発モード
             val guild = jda.getGuildById(dotenv["DEV_GUILD"])
             for (cmd in commands) {

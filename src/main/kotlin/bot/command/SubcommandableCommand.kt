@@ -43,7 +43,7 @@ abstract class Subcommand {
         get() = parentsPath?.let { CommandPath("$it.$subcommandName") }
 
     val subcommandData: SubcommandData
-        get() = SubcommandData(subcommandName, description).addOptions(subcommandOptions)
+        get() = SubcommandData(subcommandName, "$parentsPath : $description").addOptions(subcommandOptions)
 
     abstract fun onSubcommand(event: SlashCommandInteractionEvent, data: CommandEventData)
 }

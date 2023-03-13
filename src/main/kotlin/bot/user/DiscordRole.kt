@@ -16,13 +16,13 @@ class DiscordRole(
     var discordRoleId: Long,
 
     @Column(name = "discord_guild_id")
-    var discordGuildId: Long,
+    var discordGuildId: Long
+) : Permissionable {
 
     @OneToOne(cascade = [CascadeType.ALL])
-    val permissions: PermissionManager = PermissionManager()
+    override val permissions = PermissionManager()
 
-) {
-    fun save() {
+    override fun save() {
         Bot.roleDao.save(this)
     }
 }

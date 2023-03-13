@@ -1,12 +1,22 @@
 package bot.user
 
+import bot.Bot
 import hibernate.HibernateUtil
 
 class RoleDao {
-    fun save(role: DiscordRole) {
+
+    fun createSave(role: DiscordRole) {
         val session = HibernateUtil.getSession()
         val tx = session.beginTransaction()
         session.persist(role)
+        tx.commit()
+        HibernateUtil.closeSession()
+    }
+
+    fun save(role: DiscordRole) {
+        val session = HibernateUtil.getSession()
+        val tx = session.beginTransaction()
+        session.merge(role)
         tx.commit()
         HibernateUtil.closeSession()
     }
@@ -28,7 +38,7 @@ class RoleDao {
         return roleIds.map {
             roles.find { it2 -> it2.discordRoleId == it } ?: run {
                 val r = DiscordRole(discordRoleId = it, discordGuildId = guildId)
-                r.save()
+                Bot.roleDao.createSave(r)
                 r
             }
         }
