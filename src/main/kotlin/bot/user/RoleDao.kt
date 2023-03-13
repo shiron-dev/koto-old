@@ -11,28 +11,8 @@ class RoleDao {
         HibernateUtil.closeSession()
     }
 
-    private fun findByDiscordRoleIdAndDiscordGuildId(roleId: Long, guildId: Long): DiscordRole? {
-        val session = HibernateUtil.getSession()
-        val query = session.createQuery(
-            "FROM DiscordRole WHERE discordRoleId = :roleId AND discordGuildId = :guildId",
-            DiscordRole::class.java
-        )
-        query.setParameter("roleId", roleId)
-        query.setParameter("guildId", guildId)
-        val role = query.setMaxResults(1).uniqueResult()
-        HibernateUtil.closeSession()
-        return role
-    }
-
     fun findByDiscordRoleIdAndDiscordGuildIdOrMake(roleId: Long, guildId: Long): DiscordRole {
-        return findByDiscordRoleIdAndDiscordGuildId(
-            roleId,
-            guildId
-        ) ?: run {
-            val r = DiscordRole(discordRoleId = roleId, discordGuildId = guildId)
-            r.save()
-            r
-        }
+        return getListedRolesOrMake(listOf(roleId), guildId).first()
     }
 
     fun getListedRolesOrMake(roleIds: List<Long>, guildId: Long): List<DiscordRole> {
