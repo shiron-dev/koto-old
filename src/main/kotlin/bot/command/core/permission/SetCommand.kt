@@ -27,23 +27,23 @@ class SetCommand : Subcommand() {
         val user = event.getOption("user")?.asUser
         val role = event.getOption("role")?.asRole
         if (user != null && role != null) {
-            event.hook.editOriginal("`user`または`role`のどちらか一方のみを指定してください。").queue()
+            data.reply("`user`または`role`のどちらか一方のみを指定してください。")
             return
         }
         val target = user ?: role ?: run {
-            event.hook.editOriginal("`user`または`role`のどちらか片方を指定してください。").queue()
+            data.reply("`user`または`role`のどちらか片方を指定してください。")
             return
         }
         val permissionable =
             user?.let { Bot.userDao.findByDiscordUserIdAndDiscordGuildIdOrMake(it.idLong, event.guild!!.idLong) }
                 ?: role?.let { Bot.roleDao.findByDiscordRoleIdAndDiscordGuildIdOrMake(it.idLong, event.guild!!.idLong) }
                 ?: run {
-                    event.hook.editOriginal("内部エラーです。Permissionableオブジェクトが取得できません。").queue()
+                    data.reply("内部エラーです。Permissionableオブジェクトが取得できません。")
                     return
                 }
 
         val cmd = event.getOption("command")?.asString ?: run {
-            event.hook.editOriginal("`command`を指定してください。").queue()
+            data.reply("`command`を指定してください。")
             return
         }
         val value = when (event.getOption("value")?.asString?.lowercase()) {
@@ -51,8 +51,7 @@ class SetCommand : Subcommand() {
             "ng" -> false
             "def" -> null
             else -> {
-                event.hook.editOriginal("`value`には`ok`(実行を許可), `ng`(実行を禁止), `def`(デフォルト権限)のどれかを指定してください。")
-                    .queue()
+                data.reply("`value`には`ok`(実行を許可), `ng`(実行を禁止), `def`(デフォルト権限)のどれかを指定してください。")
                 return
             }
         }
@@ -62,25 +61,20 @@ class SetCommand : Subcommand() {
         val cmdPath = try {
             val cp = CommandPath(cmd)
             Bot.commands.find { it.commandPath == cp } ?: run {
-                event.hook.editOriginal(
-                    "存在しないCommandPathです。\n$errorStr"
-
-                ).queue()
+                data.reply("存在しないCommandPathです。\n$errorStr")
                 return
             }
             cp
         } catch (e: IllegalArgumentException) {
             Bot.commands.find { it.commandName == cmd }?.commandPath ?: run {
-                event.hook.editOriginal(
-                    "`cmd`が不正な形です。\n$errorStr"
-                ).queue()
+                data.reply("`cmd`が不正な形です。\n$errorStr")
                 return
             }
         }
         permissionable.permissions[cmdPath].runnable = value
         permissionable.save()
 
-        event.hook.editOriginal("${target.asMention}の`$cmdPath`の権限を`$value`に設定しました").queue()
+        data.reply("${target.asMention}の`$cmdPath`の権限を`$value`に設定しました")
     }
 
 }

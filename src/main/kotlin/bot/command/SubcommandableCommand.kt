@@ -26,7 +26,7 @@ abstract class SubcommandableCommand : Command() {
     }
 
     open fun onNotHasSubcommand(event: SlashCommandInteractionEvent, data: CommandEventData) {
-        event.hook.editOriginal("`$commandPath`にはサブコマンド`${event.subcommandName}`が存在しません。").queue()
+        data.reply("`$commandPath`にはサブコマンド`${event.subcommandName}`が存在しません。")
     }
 }
 

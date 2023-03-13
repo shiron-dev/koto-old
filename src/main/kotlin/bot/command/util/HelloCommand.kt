@@ -11,6 +11,6 @@ class HelloCommand : Command() {
     override val commandPath = CommandPath("koto.util.hello")
 
     override fun onSlashCommand(event: SlashCommandInteractionEvent, data: CommandEventData) {
-        event.hook.editOriginal("Hello ${event.user.asMention}!").queue()
+        data.reply("Hello ${event.user.asMention}!")
     }
 }

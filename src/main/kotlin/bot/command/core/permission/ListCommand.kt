@@ -21,7 +21,7 @@ class ListCommand : Subcommand() {
         val role = event.getOption("role")?.asRole
 
         if (user != null && role != null) {
-            event.hook.editOriginal("`user`または`role`のどちらか一方のみを指定してください。").queue()
+            data.reply("`user`または`role`のどちらか一方のみを指定してください。")
             return
         }
 
@@ -43,8 +43,7 @@ class ListCommand : Subcommand() {
                 .joinToString(separator = "\n") {
                     "${if (it.value.runnable == true) ":o:" else if (it.value.runnable == false) ":x:" else ":arrow_backward:"}`${it.key}`"
                 }
-        event.hook.editOriginal("${target?.asMention ?: "Botデフォルトの権限(開発者設定)"}に設定された権限一覧\n$permissionStr\n:o:許可、:x:禁止、:arrow_backward:未設定(ユーザーに設定された別のロール等の権限に従う)")
-            .queue()
+        data.reply("${target?.asMention ?: "Botデフォルトの権限(開発者設定)"}に設定された権限一覧\n$permissionStr\n:o:許可、:x:禁止、:arrow_backward:未設定(ユーザーに設定された別のロール等の権限に従う)")
     }
 
 }
