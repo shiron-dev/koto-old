@@ -6,12 +6,12 @@ import bot.command.CommandPath
 class DefaultPermissions {
 
     companion object {
-        val allFalse = CommandPermission(runnable = false, viewable = false)
+        val allFalse = CommandPermission(runnable = false)
 
         fun getDefaultPermission(commandPath: CommandPath): CommandPermission? {
             return when (commandPath) {
-                CommandPath("koto.util.hello") -> CommandPermission(runnable = true, viewable = true)
-                CommandPath("koto.core.permission") -> CommandPermission(runnable = true, viewable = true)
+                CommandPath("koto.util.hello") -> CommandPermission(runnable = true)
+                CommandPath("koto.core.permission") -> CommandPermission(runnable = true)
                 else -> {
                     null
                 }

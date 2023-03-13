@@ -44,19 +44,6 @@ fun permissionCheck(commandPath: CommandPath, userId: Long, guildId: Long, user:
     return ret
 }
 
-fun permissionViewableChecker(commandPath: CommandPath, userId: Long, guildId: Long, user: DiscordUser): Boolean? {
-    var ret = user.permissions[commandPath].viewable
-
-    for (permission in getRolePermissions(commandPath, userId, guildId)) {
-        if (ret != null) {
-            return ret
-        }
-        ret = permission.viewable
-    }
-
-    return ret
-}
-
 private fun getRolePermissions(commandPath: CommandPath, userId: Long, guildId: Long): List<CommandPermission> {
     val roleIds = (Bot.jda.getGuildById(guildId)?.getMemberById(userId)?.roles?.toList()?.map { it.idLong }
         ?: throw IOException()) + listOf(Bot.jda.getGuildById(guildId)!!.publicRole.idLong)
