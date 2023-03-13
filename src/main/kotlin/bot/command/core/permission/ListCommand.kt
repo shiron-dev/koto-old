@@ -26,23 +26,22 @@ class ListCommand : Subcommand() {
         }
 
         val target = user ?: role
-
-        val permissionMap = user?.let {
+        val permissionManager = user?.let {
             Bot.userDao.findByDiscordUserIdAndDiscordGuildIdOrMake(
                 it.idLong,
                 event.guild!!.idLong
-            ).permissions.getPermissionsMap()
+            ).permissions
         } ?: role?.let {
             Bot.roleDao.findByDiscordRoleIdAndDiscordGuildIdOrMake(
                 it.idLong,
                 event.guild!!.idLong
-            ).permissions.getPermissionsMap()
-        } ?: DefaultPermissions.getDefaultPermissionManager().getPermissionsMap()
+            ).permissions
+        } ?: DefaultPermissions.getDefaultPermissionManager()
 
         val permissionStr =
-            Bot.commands.associate { it.commandPath to permissionMap[it.commandPath] }.entries
+            Bot.commands.associate { it.commandPath to permissionManager[it.commandPath] }.entries
                 .joinToString(separator = "\n") {
-                    "${if (it.value?.runnable == true) ":o:" else if (it.value?.runnable == false) ":x:" else ":arrow_backward:"}`${it.key}`"
+                    "${if (it.value.runnable == true) ":o:" else if (it.value.runnable == false) ":x:" else ":arrow_backward:"}`${it.key}`"
                 }
         event.hook.editOriginal("${target?.asMention ?: "Botデフォルトの権限(開発者設定)"}に設定された権限一覧\n$permissionStr\n:o:許可、:x:禁止、:arrow_backward:未設定(ユーザーに設定された別のロール等の権限に従う)")
             .queue()
