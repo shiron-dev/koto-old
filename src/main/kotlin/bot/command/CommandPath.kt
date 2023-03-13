@@ -8,6 +8,9 @@ class CommandPath(commandPath: String) {
 
     init {
         val token = commandPath.split(".")
+        if (token.size < 3) {
+            throw IllegalArgumentException()
+        }
         base = token[0]
         category = token[1]
         commandName = token[2]

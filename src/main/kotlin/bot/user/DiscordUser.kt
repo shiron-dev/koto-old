@@ -6,23 +6,23 @@ import bot.permission.PermissionManager
 
 @Entity
 @Table(name = "users")
-class DiscordUser {
+class DiscordUser(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    val id: Long = 0
+    val id: Long = 0,
 
     @Column(name = "discord_user_id")
-    var discordUserId: Long? = null
+    var discordUserId: Long? = null,
 
     @Column(name = "discord_guild_id")
-    var discordGuildId: Long? = null
-
+    var discordGuildId: Long? = null,
+) : Permissionable {
     @OneToOne(cascade = [CascadeType.ALL])
-    val permissions: PermissionManager = PermissionManager()
+    override val permissions = PermissionManager()
 
-    fun save() {
+    override fun save() {
         Bot.userDao.save(this)
     }
 }
