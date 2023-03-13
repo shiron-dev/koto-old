@@ -19,7 +19,7 @@ class CheckUserCommand : Subcommand() {
 
     override fun onSubcommand(event: SlashCommandInteractionEvent, data: CommandEventData) {
         val user = event.getOption("user")?.asUser ?: run {
-            event.hook.editOriginal("引数`user`を確認できません。").queue()
+            data.reply("引数`user`を確認できません。")
             return
         }
         val permissionManager = PermissionManager()
@@ -31,7 +31,7 @@ class CheckUserCommand : Subcommand() {
                 "${if (it.value.runnable == true) ":o:" else ":x:"}`${it.key}`"
             }
 
-        event.hook.editOriginal("${user.asMention}の実際の権限\n$permissionStr").queue()
+        data.reply("${user.asMention}の実際の権限\n$permissionStr")
     }
 
 }
