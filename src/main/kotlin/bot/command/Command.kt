@@ -4,6 +4,7 @@ import bot.Bot
 import bot.permission.CommandPermission
 import bot.permission.permissionCheck
 import bot.user.DiscordUser
+import net.dv8tion.jda.api.Permission
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
 import net.dv8tion.jda.api.interactions.commands.build.Commands
@@ -33,10 +34,13 @@ abstract class Command : ListenerAdapter() {
 
             try {
                 val permission = permissionCheck(commandPath, event.user.idLong, event.guild!!.idLong, user)
-
-                if (permission.runnable == true) {
+                val admin = permission.runnable != true && event.guild!!.getMember(event.user)
+                    ?.hasPermission(Permission.ADMINISTRATOR) == true
+                val adminStr = if (admin) ":warning:**このコマンドは管理者権限によって実行されています。**:warning:\n\n" else ""
+                if (permission.runnable == true || admin
+                ) {
                     try {
-                        onSlashCommand(event, CommandEventData(user, permission, event))
+                        onSlashCommand(event, CommandEventData(user, permission, event, adminStr))
                     } catch (e: Exception) {
                         val errorStr = if (Bot.isDevMode) "\n$e" else ""
                         event.hook.editOriginal("コマンドの実行中に内部エラーが発生しました。$errorStr").queue()
@@ -59,9 +63,10 @@ abstract class Command : ListenerAdapter() {
 data class CommandEventData(
     val user: DiscordUser,
     val userPermission: CommandPermission,
-    val event: SlashCommandInteractionEvent
+    val event: SlashCommandInteractionEvent,
+    private val prefixStr: String
 ) {
     fun reply(msg: String) {
-        event.hook.editOriginal(msg).queue()
+        event.hook.editOriginal("$prefixStr$msg").queue()
     }
 }
