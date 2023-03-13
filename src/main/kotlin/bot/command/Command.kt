@@ -36,7 +36,7 @@ abstract class Command : ListenerAdapter() {
 
                 if (permission.runnable == true) {
                     try {
-                        onSlashCommand(event, CommandEventData(user, permission))
+                        onSlashCommand(event, CommandEventData(user, permission, event))
                     } catch (e: Exception) {
                         val errorStr = if (Bot.isDevMode) "\n$e" else ""
                         event.hook.editOriginal("コマンドの実行中に内部エラーが発生しました。$errorStr").queue()
@@ -56,4 +56,12 @@ abstract class Command : ListenerAdapter() {
 
 }
 
-data class CommandEventData(val user: DiscordUser, val userPermission: CommandPermission)
+data class CommandEventData(
+    val user: DiscordUser,
+    val userPermission: CommandPermission,
+    val event: SlashCommandInteractionEvent
+) {
+    fun reply(msg: String) {
+        event.hook.editOriginal(msg).queue()
+    }
+}
