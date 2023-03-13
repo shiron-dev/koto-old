@@ -27,10 +27,9 @@ class CheckUserCommand : Subcommand() {
             permissionManager[command] = permissionCheck(command, user.idLong, event.guild!!.idLong)
         }
         val permissionStr =
-            permissionManager.getPermissionsMap().entries.filter { it.value.viewable == true }
-                .joinToString(separator = "\n") {
-                    "${if (it.value.runnable == true) ":o:" else ":x:"}`${it.key}`"
-                }
+            permissionManager.getPermissionsMap().entries.joinToString(separator = "\n") {
+                "${if (it.value.runnable == true) ":o:" else ":x:"}`${it.key}`"
+            }
 
         event.hook.editOriginal("${user.asMention}の実際の権限\n$permissionStr").queue()
     }

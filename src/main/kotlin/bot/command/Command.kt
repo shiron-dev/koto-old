@@ -35,19 +35,15 @@ abstract class Command : ListenerAdapter() {
             try {
                 val permission = permissionCheck(commandPath, event.user.idLong, event.guild!!.idLong, user)
 
-                if (permission.viewable == true) {
-                    if (permission.runnable == true) {
-                        try {
-                            onSlashCommand(event, CommandEventData(user, permission))
-                        } catch (e: Exception) {
-                            event.hook.editOriginal("内部エラーが発生しました。").queue()
-                        }
-                    } else {
-                        event.hook.editOriginal("${event.user.asMention}はサーバーによって`$commandPath`の実行が禁止されています。")
-                            .queue()
+                if (permission.runnable == true) {
+                    try {
+                        onSlashCommand(event, CommandEventData(user, permission))
+                    } catch (e: Exception) {
+                        event.hook.editOriginal("内部エラーが発生しました。").queue()
                     }
                 } else {
-                    event.hook.editOriginal("開発者権限者以外はコマンドを実行できません。").queue()
+                    event.hook.editOriginal("${event.user.asMention}はサーバーによって`$commandPath`の実行が禁止されています。")
+                        .queue()
                 }
 
             } catch (e: IOException) {

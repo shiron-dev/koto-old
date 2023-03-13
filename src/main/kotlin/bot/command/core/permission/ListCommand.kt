@@ -4,7 +4,6 @@ import bot.Bot
 import bot.command.CommandEventData
 import bot.command.Subcommand
 import bot.permission.DefaultPermissions
-import bot.permission.permissionViewableChecker
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 import net.dv8tion.jda.api.interactions.commands.OptionType
 import net.dv8tion.jda.api.interactions.commands.build.OptionData
@@ -23,18 +22,6 @@ class ListCommand : Subcommand() {
 
         val target = user ?: role
 
-        val discordUser =
-            Bot.userDao.findByDiscordUserIdAndDiscordGuildIdOrMake(event.user.idLong, event.guild!!.idLong)
-
-        val viewableMap =
-            Bot.commands.associate {
-                it.commandPath to permissionViewableChecker(
-                    it.commandPath,
-                    event.user.idLong,
-                    event.guild!!.idLong,
-                    discordUser
-                )
-            }
         val permissionMap = user?.let {
             Bot.userDao.findByDiscordUserIdAndDiscordGuildIdOrMake(
                 it.idLong,
@@ -48,8 +35,7 @@ class ListCommand : Subcommand() {
         } ?: DefaultPermissions.getDefaultPermissionManager().getPermissionsMap()
 
         val permissionStr =
-            Bot.commands.filter { viewableMap[it.commandPath] == true }
-                .associate { it.commandPath to permissionMap[it.commandPath] }.entries
+            Bot.commands.associate { it.commandPath to permissionMap[it.commandPath] }.entries
                 .joinToString(separator = "\n") {
                     "${if (it.value?.runnable == true) ":o:" else if (it.value?.runnable == false) ":x:" else ":arrow_backward:"}`${it.key}`"
                 }
