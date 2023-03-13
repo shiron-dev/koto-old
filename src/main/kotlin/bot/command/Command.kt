@@ -37,17 +37,21 @@ abstract class Command : ListenerAdapter() {
 
                 if (permission.viewable == true) {
                     if (permission.runnable == true) {
-                        onSlashCommand(event, CommandEventData(user, permission))
+                        try {
+                            onSlashCommand(event, CommandEventData(user, permission))
+                        } catch (e: Exception) {
+                            event.hook.editOriginal("内部エラーが発生しました。").queue()
+                        }
                     } else {
                         event.hook.editOriginal("${event.user.asMention}はサーバーによって`$commandPath`の実行が禁止されています。")
                             .queue()
                     }
                 } else {
-                    event.hook.editOriginal("コマンドが見つかりません。").queue()
+                    event.hook.editOriginal("開発者権限者以外はコマンドを実行できません。").queue()
                 }
 
             } catch (e: IOException) {
-                event.hook.editOriginal("ロール情報が取得できません。").queue()
+                event.hook.editOriginal("ロール情報が取得できないため、コマンドが実行できません。").queue()
             }
         }
     }

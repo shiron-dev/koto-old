@@ -1,7 +1,10 @@
 package bot.command.core.permission
 
+import bot.Bot
 import bot.command.CommandEventData
 import bot.command.Subcommand
+import bot.permission.DefaultPermissions
+import bot.permission.permissionViewableChecker
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 import net.dv8tion.jda.api.interactions.commands.OptionType
 import net.dv8tion.jda.api.interactions.commands.build.OptionData
@@ -15,7 +18,43 @@ class ListCommand : Subcommand() {
         listOf(OptionData(OptionType.USER, "user", "ユーザー"), OptionData(OptionType.ROLE, "role", "ロール"))
 
     override fun onSubcommand(event: SlashCommandInteractionEvent, data: CommandEventData) {
-        event.hook.editOriginal("リストコマンド").queue()
+        val user = event.getOption("user")?.asUser
+        val role = event.getOption("role")?.asRole
+
+        val target = user ?: role
+
+        val discordUser =
+            Bot.userDao.findByDiscordUserIdAndDiscordGuildIdOrMake(event.user.idLong, event.guild!!.idLong)
+
+        val viewableMap =
+            Bot.commands.associate {
+                it.commandPath to permissionViewableChecker(
+                    it.commandPath,
+                    event.user.idLong,
+                    event.guild!!.idLong,
+                    discordUser
+                )
+            }
+        val permissionMap = user?.let {
+            Bot.userDao.findByDiscordUserIdAndDiscordGuildIdOrMake(
+                it.idLong,
+                event.guild!!.idLong
+            ).permissions.getPermissionsMap()
+        } ?: role?.let {
+            Bot.roleDao.findByDiscordRoleIdAndDiscordGuildIdOrMake(
+                it.idLong,
+                event.guild!!.idLong
+            ).permissions.getPermissionsMap()
+        } ?: DefaultPermissions.getDefaultPermissionManager().getPermissionsMap()
+
+        val permissionStr =
+            Bot.commands.filter { viewableMap[it.commandPath] == true }
+                .associate { it.commandPath to permissionMap[it.commandPath] }.entries
+                .joinToString(separator = "\n") {
+                    "${if (it.value?.runnable == true) ":o:" else if (it.value?.runnable == false) ":x:" else ":arrow_backward:"}`${it.key}`"
+                }
+        event.hook.editOriginal("${target?.asMention ?: "Botデフォルトの権限(開発者設定)"}に設定された権限一覧\n$permissionStr\n:o:許可、:x:禁止、:arrow_backward:未設定(ユーザーに設定された別のロール等の権限に従う)")
+            .queue()
     }
 
 }

@@ -27,7 +27,7 @@ class PermissionManager(
     }
 
     fun getPermissionsMap(): Map<CommandPath, CommandPermission> {
-        return permissions
+        return permissions.toMap()
     }
 }
 
