@@ -16,6 +16,8 @@ repositories {
 dependencies {
     testImplementation(kotlin("test"))
 
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.0-Beta")
+
     implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
 
     implementation("org.xerial:sqlite-jdbc:3.40.0.0")
