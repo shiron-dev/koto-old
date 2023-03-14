@@ -12,6 +12,7 @@ import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
 import net.dv8tion.jda.api.entities.Activity
 import net.dv8tion.jda.api.requests.GatewayIntent
+import net.dv8tion.jda.api.utils.MemberCachePolicy
 import javax.security.auth.login.LoginException
 
 const val DISCORD_MESSAGE_URL_PREFIX = "https://discord.com/channels/"
@@ -36,9 +37,15 @@ object Bot {
 
     init {
         try {
-            jda = JDABuilder.createDefault(botToken, GatewayIntent.GUILD_MESSAGES, GatewayIntent.MESSAGE_CONTENT)
+            jda = JDABuilder.createDefault(
+                botToken,
+                GatewayIntent.GUILD_MEMBERS,
+                GatewayIntent.GUILD_MESSAGES,
+                GatewayIntent.MESSAGE_CONTENT
+            )
                 .setRawEventsEnabled(true)
                 .setActivity(Activity.playing("開発中"))
+                .setMemberCachePolicy(MemberCachePolicy.ALL)
                 .build()
 
             jda.awaitReady()
