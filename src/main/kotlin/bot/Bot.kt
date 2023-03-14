@@ -3,6 +3,8 @@ package bot
 import bot.command.Command
 import bot.command.core.permission.PermissionCommand
 import bot.command.util.HelloCommand
+import bot.command.util.QuoteCommand
+import bot.events.MessageReceiveListener
 import bot.user.RoleDao
 import bot.user.UserDao
 import io.github.cdimascio.dotenv.dotenv
@@ -12,6 +14,7 @@ import net.dv8tion.jda.api.entities.Activity
 import net.dv8tion.jda.api.requests.GatewayIntent
 import javax.security.auth.login.LoginException
 
+const val DISCORD_MESSAGE_URL_PREFIX = "https://discord.com/channels/"
 
 val dotenv = dotenv()
 
@@ -29,11 +32,11 @@ object Bot {
     val userDao = UserDao()
     val roleDao = RoleDao()
 
-    val commands: List<Command> = listOf(HelloCommand(), PermissionCommand())
+    val commands: List<Command> = listOf(HelloCommand(), PermissionCommand(), QuoteCommand())
 
     init {
         try {
-            jda = JDABuilder.createDefault(botToken, GatewayIntent.GUILD_MESSAGES)
+            jda = JDABuilder.createDefault(botToken, GatewayIntent.GUILD_MESSAGES, GatewayIntent.MESSAGE_CONTENT)
                 .setRawEventsEnabled(true)
                 .setActivity(Activity.playing("開発中"))
                 .build()
@@ -60,5 +63,6 @@ object Bot {
         } else {
             // 本番モード
         }
+        jda.addEventListener(MessageReceiveListener())
     }
 }
