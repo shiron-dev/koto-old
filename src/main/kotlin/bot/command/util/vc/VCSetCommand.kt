@@ -27,8 +27,8 @@ class VCSetCommand : Subcommand() {
             data.reply("`vc`の引数はボイスチャンネルか、ステージチャンネルにしてください。")
             return
         }
-        if (textChannel.type != ChannelType.TEXT && textChannel.type != ChannelType.NEWS) {
-            data.reply("`text`の引数はテキストチャンネルか、アナウンスチャンネル(ニュースチャンネル)にしてください。")
+        if (textChannel.type != ChannelType.TEXT) {
+            data.reply("`text`の引数はテキストチャンネルにしてください。")
             return
         }
 
