@@ -1,11 +1,12 @@
-package bot.user
+package bot.dao
 
 import bot.Bot
+import bot.user.DiscordUser
 import hibernate.HibernateUtil
 
 @Suppress("unused")
 class UserDao {
-    fun createSave(user: DiscordUser) {
+    private fun createSave(user: DiscordUser) {
         val session = HibernateUtil.getSession()
         val tx = session.beginTransaction()
         session.persist(user)
