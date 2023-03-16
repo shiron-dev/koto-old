@@ -13,11 +13,11 @@ class DiscordUser(
     @Column(name = "id")
     val id: Long = 0,
 
-    @Column(name = "discord_user_id")
-    var discordUserId: Long? = null,
+    @Column(name = "user_id")
+    var userId: Long? = null,
 
-    @Column(name = "discord_guild_id")
-    var discordGuildId: Long? = null,
+    @Column(name = "guild_id")
+    var guildId: Long? = null,
 ) : Permissionable {
     @OneToOne(cascade = [CascadeType.ALL])
     override val permissions = PermissionManager()

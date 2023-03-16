@@ -54,7 +54,7 @@ class UserDao {
     private fun findByDiscordUserIdAndDiscordGuildId(userId: Long, guildId: Long): DiscordUser? {
         val session = HibernateUtil.getSession()
         val query = session.createQuery(
-            "FROM DiscordUser WHERE discordUserId = :userId AND discordGuildId = :guildId",
+            "FROM DiscordUser WHERE userId = :userId AND guildId = :guildId",
             DiscordUser::class.java
         )
         query.setParameter("userId", userId)
@@ -66,7 +66,7 @@ class UserDao {
 
     fun findByDiscordUserIdAndDiscordGuildIdOrMake(userId: Long, guildId: Long): DiscordUser {
         return findByDiscordUserIdAndDiscordGuildId(userId, guildId) ?: run {
-            val u = DiscordUser(discordUserId = userId, discordGuildId = guildId)
+            val u = DiscordUser(userId = userId, guildId = guildId)
             Bot.userDao.createSave(u)
             u
         }

@@ -28,7 +28,7 @@ class RoleDao {
     fun getListedRolesOrMake(roleIds: List<Long>, guildId: Long): List<DiscordRole> {
         val session = HibernateUtil.getSession()
         val query = session.createQuery(
-            "FROM DiscordRole WHERE discordRoleId in :roleIds AND discordGuildId = :guildId",
+            "FROM DiscordRole WHERE roleId in :roleIds AND guildId = :guildId",
             DiscordRole::class.java
         )
         query.setParameter("roleIds", roleIds)
@@ -36,8 +36,8 @@ class RoleDao {
         val roles = query.resultList
         HibernateUtil.closeSession()
         return roleIds.map {
-            roles.find { it2 -> it2.discordRoleId == it } ?: run {
-                val r = DiscordRole(discordRoleId = it, discordGuildId = guildId)
+            roles.find { it2 -> it2.roleId == it } ?: run {
+                val r = DiscordRole(roleId = it, guildId = guildId)
                 Bot.roleDao.createSave(r)
                 r
             }
