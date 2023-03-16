@@ -7,5 +7,5 @@ class VCCommand : SubcommandableCommand() {
     override val commandName = "vc"
     override val description = "VCの参加通知"
     override val commandPath = CommandPath("koto.util.vc")
-    override val subcommands = listOf(VCSetCommand())
+    override val subcommands = listOf(VCSetCommand(), VCListCommand())
 }

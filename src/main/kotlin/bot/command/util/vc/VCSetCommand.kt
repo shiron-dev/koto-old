@@ -3,6 +3,7 @@ package bot.command.util.vc
 import bot.Bot
 import bot.command.CommandEventData
 import bot.command.Subcommand
+import net.dv8tion.jda.api.entities.channel.ChannelType
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 import net.dv8tion.jda.api.interactions.commands.OptionType
 import net.dv8tion.jda.api.interactions.commands.build.OptionData
@@ -20,6 +21,14 @@ class VCSetCommand : Subcommand() {
         val textChannel = event.getOption("text")?.asChannel
         if (vcChannel == null || textChannel == null) {
             data.reply("`vc`、`text`の引数は必ず設定してください。")
+            return
+        }
+        if (vcChannel.type != ChannelType.VOICE && vcChannel.type != ChannelType.STAGE) {
+            data.reply("`vc`の引数はボイスチャンネルか、ステージチャンネルにしてください。")
+            return
+        }
+        if (textChannel.type != ChannelType.TEXT && textChannel.type != ChannelType.NEWS) {
+            data.reply("`text`の引数はテキストチャンネルか、アナウンスチャンネル(ニュースチャンネル)にしてください。")
             return
         }
 
