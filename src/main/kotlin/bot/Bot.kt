@@ -5,9 +5,11 @@ import bot.command.core.PingCommand
 import bot.command.core.permission.PermissionCommand
 import bot.command.util.HelloCommand
 import bot.command.util.QuoteCommand
+import bot.command.util.vc.VCCommand
 import bot.events.MessageReceiveListener
 import bot.dao.RoleDao
 import bot.dao.UserDao
+import bot.dao.VCConfigDao
 import io.github.cdimascio.dotenv.dotenv
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
@@ -33,8 +35,10 @@ object Bot {
 
     val userDao = UserDao()
     val roleDao = RoleDao()
+    val vcConfigDao = VCConfigDao()
 
-    val commands: List<Command> = listOf(HelloCommand(), PermissionCommand(), QuoteCommand(), PingCommand())
+    val commands: List<Command> =
+        listOf(HelloCommand(), PermissionCommand(), QuoteCommand(), PingCommand(), VCCommand())
 
     init {
         try {
