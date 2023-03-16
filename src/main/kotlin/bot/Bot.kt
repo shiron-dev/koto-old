@@ -6,8 +6,8 @@ import bot.command.core.permission.PermissionCommand
 import bot.command.util.HelloCommand
 import bot.command.util.QuoteCommand
 import bot.events.MessageReceiveListener
-import bot.user.RoleDao
-import bot.user.UserDao
+import bot.dao.RoleDao
+import bot.dao.UserDao
 import io.github.cdimascio.dotenv.dotenv
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
