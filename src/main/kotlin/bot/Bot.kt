@@ -10,6 +10,7 @@ import bot.events.MessageReceiveListener
 import bot.dao.RoleDao
 import bot.dao.UserDao
 import bot.dao.VCConfigDao
+import bot.events.VoiceChannelJoinListener
 import io.github.cdimascio.dotenv.dotenv
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
@@ -46,6 +47,7 @@ object Bot {
                 botToken,
                 GatewayIntent.GUILD_MEMBERS,
                 GatewayIntent.GUILD_MESSAGES,
+                GatewayIntent.GUILD_VOICE_STATES,
                 GatewayIntent.MESSAGE_CONTENT
             )
                 .setRawEventsEnabled(true)
@@ -74,5 +76,6 @@ object Bot {
             // 本番モード
         }
         jda.addEventListener(MessageReceiveListener())
+        jda.addEventListener(VoiceChannelJoinListener())
     }
 }
