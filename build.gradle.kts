@@ -49,6 +49,8 @@ application {
 }
 
 tasks.withType<Jar> {
+    archiveFileName.set("${project.name}.jar")
+
     manifest {
         attributes["Main-Class"] = "MainKt"
         attributes["Implementation-Version"] = implementationVersion
