@@ -4,10 +4,16 @@ plugins {
     kotlin("jvm") version "1.8.10"
     application
     kotlin("plugin.jpa") version "1.6.21"
+
+    id("com.palantir.git-version") version "2.0.0"
 }
 
 group = "dev.shiron"
-version = "1.0-SNAPSHOT"
+
+val versionDetails: groovy.lang.Closure<com.palantir.gradle.gitversion.VersionDetails> by extra
+val details = versionDetails()
+version = details.lastTag
+val implementationVersion = "$version.${details.gitHash.substring(0, 7)}"
 
 repositories {
     mavenCentral()
@@ -45,7 +51,7 @@ application {
 tasks.withType<Jar> {
     manifest {
         attributes["Main-Class"] = "MainKt"
-        attributes["Implementation-Version"] = "1.0"
+        attributes["Implementation-Version"] = implementationVersion
     }
 
     from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
