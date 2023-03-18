@@ -7,11 +7,14 @@ import bot.user.DiscordUser
 import net.dv8tion.jda.api.Permission
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
+import net.dv8tion.jda.api.interactions.commands.OptionType
 import net.dv8tion.jda.api.interactions.commands.build.Commands
 import net.dv8tion.jda.api.interactions.commands.build.OptionData
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData
 
 abstract class Command : ListenerAdapter() {
+    protected val sharedOptionData =
+        OptionData(OptionType.BOOLEAN, "shared", "他の人にコマンドの実行結果が見えるかどうか。デフォルト値はfalse(見えない)")
 
     abstract val commandName: String
     abstract val description: String
@@ -20,6 +23,7 @@ abstract class Command : ListenerAdapter() {
 
     open val slashCommandData: SlashCommandData
         get() = Commands.slash(commandName, "`$commandPath` : $description").addOptions(commandOptions)
+            .addOptions(sharedOptionData)
 
     override fun onSlashCommandInteraction(event: SlashCommandInteractionEvent) {
         if (event.name == commandName) {
@@ -28,7 +32,7 @@ abstract class Command : ListenerAdapter() {
                 return
             }
 
-            event.deferReply().setEphemeral(true).queue()
+            event.deferReply().setEphemeral((event.getOption("shared")?.asBoolean?.not()) ?: true).queue()
 
             val user = Bot.userDao.findByDiscordUserIdAndDiscordGuildIdOrMake(event.user.idLong, event.guild!!.idLong)
 
