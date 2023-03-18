@@ -62,7 +62,7 @@ object Bot {
                 GatewayIntent.MESSAGE_CONTENT
             )
                 .setRawEventsEnabled(true)
-                .setActivity(Activity.playing("開発中"))
+                .setActivity(Activity.playing(dotenv["ACTIVITY"] ?: "Koto | /help"))
                 .setMemberCachePolicy(MemberCachePolicy.ALL)
                 .build()
 
