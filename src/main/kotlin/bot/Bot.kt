@@ -7,10 +7,10 @@ import bot.command.core.permission.PermissionCommand
 import bot.command.util.HelloCommand
 import bot.command.util.QuoteCommand
 import bot.command.util.vc.VCCommand
-import bot.events.MessageReceiveListener
 import bot.dao.RoleDao
 import bot.dao.UserDao
 import bot.dao.VCConfigDao
+import bot.events.MessageReceiveListener
 import bot.events.VoiceChannelJoinListener
 import io.github.cdimascio.dotenv.dotenv
 import net.dv8tion.jda.api.JDA
@@ -26,14 +26,14 @@ const val DISCORD_MESSAGE_URL_PREFIX = "https://discord.com/channels/"
 
 val dotenv = dotenv()
 
-fun toEnvBoolean(value: String): Boolean {
+fun toEnvBoolean(value: String?): Boolean {
     return value == "True"
 }
 
 object Bot {
 
     lateinit var jda: JDA
-    private val botToken: String = dotenv["TOKEN"]
+    private val botToken: String? = dotenv["TOKEN"]
 
     val isDevMode = toEnvBoolean(dotenv["DEV_FLAG"])
 
@@ -75,16 +75,20 @@ object Bot {
     fun start() {
         if (isDevMode) {
             // 開発モード
-            val guild = jda.getGuildById(dotenv["DEV_GUILD"])
+            val guild = dotenv["DEV_GUILD"]?.let { jda.getGuildById(it) }
             for (cmd in commands) {
                 jda.addEventListener(cmd)
             }
             guild?.updateCommands()
                 ?.addCommands(commands.map { it.slashCommandData })?.queue()
 
-            guild?.getTextChannelById(dotenv["DEV_CHANNEL"])?.sendMessage("Started")?.queue()
+            dotenv["DEV_CHANNEL"]?.let { guild?.getTextChannelById(it)?.sendMessage("Started")?.queue() }
         } else {
             // 本番モード
+            for (cmd in commands) {
+                jda.addEventListener(cmd)
+            }
+            jda.updateCommands().addCommands(commands.map { it.slashCommandData }).queue()
         }
         jda.addEventListener(MessageReceiveListener())
         jda.addEventListener(VoiceChannelJoinListener())
