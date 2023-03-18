@@ -21,6 +21,8 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME }}
           port: ${{ secrets.SSH_PORT }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          passphrase: ${{ secrets.SSH_PASS }}
           source: "build/libs/*"
           target: ${{ secrets.SERVER_DEPLOY_DIR }}
       - name: Run
