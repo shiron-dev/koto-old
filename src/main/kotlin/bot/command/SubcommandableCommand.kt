@@ -12,7 +12,8 @@ abstract class SubcommandableCommand : Command() {
 
     override val slashCommandData: SlashCommandData
         get() = Commands.slash(commandName, description)
-            .addOptions(commandOptions).addSubcommands(subcommands.map { it.subcommandData })
+            .addOptions(commandOptions)
+            .addSubcommands(subcommands.map { it.subcommandData.addOptions(sharedOptionData) })
 
 
     override fun onSlashCommand(event: SlashCommandInteractionEvent, data: CommandEventData) {
