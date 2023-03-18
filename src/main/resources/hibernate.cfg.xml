@@ -1,0 +1,22 @@
+<!DOCTYPE hibernate-configuration
+        PUBLIC "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+    <session-factory>
+        <property name="hibernate.connection.driver_class">org.sqlite.JDBC</property>
+        <property name="hibernate.connection.url">jdbc:sqlite:koto.db</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">root</property>
+        <property name="hibernate.connection.pool_size">3</property>
+        <property name="hibernate.dialect">org.hibernate.community.dialect.SQLiteDialect</property>
+        <property name="hbm2ddl.auto">update</property>
+
+        <mapping class="bot.user.DiscordUser"/>
+        <mapping class="bot.user.DiscordRole"/>
+        <mapping class="bot.permission.PermissionManager"/>
+        <mapping class="bot.command.util.vc.VCConfig"/>
+    </session-factory>
+
+</hibernate-configuration>
