@@ -23,7 +23,7 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           passphrase: ${{ secrets.SSH_PASS }}
-          source: "build/libs/*"
+          source: "build/libs/koto.jar"
           target: ${{ secrets.SERVER_DEPLOY_DIR }}
       - name: Run
         uses: appleboy/ssh-action@master
