@@ -20,6 +20,7 @@ class AboutCommand : Command() {
 
         data.reply(
             "${Bot.jda.selfUser.asMention}だよ！よろしくね♪\n" +
+                    (if (Bot.isDevMode) ":warning: 開発モード:warning: \n" else "") +
                     "情報\n" +
                     "version: ${Bot.implementationVersion}\n" +
                     "ping: `${Bot.jda.gatewayPing}ms`\n" +
