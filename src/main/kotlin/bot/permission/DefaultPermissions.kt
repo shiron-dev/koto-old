@@ -14,7 +14,7 @@ class DefaultPermissions {
                 CommandPath("koto.core.permission") -> CommandPermission(runnable = false)
                 CommandPath("koto.util.quote") -> CommandPermission(runnable = true)
                 CommandPath("koto.core.ping") -> CommandPermission(runnable = true)
-                CommandPath("koto.util.vc") -> CommandPermission(runnable = true)
+                CommandPath("koto.util.vc") -> CommandPermission(runnable = false)
                 CommandPath("koto.core.about") -> CommandPermission(runnable = true)
                 else -> {
                     null
