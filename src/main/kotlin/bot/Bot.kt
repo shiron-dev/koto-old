@@ -75,6 +75,14 @@ object Bot {
     fun start() {
         if (isDevMode) {
             // 開発モード
+            // 全削除
+            jda.retrieveCommands().queue {
+                for (cmd in it) {
+                    jda.deleteCommandById(cmd.id).queue()
+                }
+            }
+
+            jda.updateCommands().addCommands(commands.map { it.slashCommandData }).queue()
             val guild = dotenv["DEV_GUILD"]?.let { jda.getGuildById(it) }
             for (cmd in commands) {
                 jda.addEventListener(cmd)
