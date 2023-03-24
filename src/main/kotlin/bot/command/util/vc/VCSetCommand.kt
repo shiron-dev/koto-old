@@ -12,7 +12,7 @@ class VCSetCommand : Subcommand() {
     override val subcommandName = "set"
     override val description = "VCの参加通知の設定をします。"
     override val subcommandOptions = listOf(
-        OptionData(OptionType.CHANNEL, "vc", "参加を通知してほしいボイスチャンネル", true),
+        OptionData(OptionType.CHANNEL, "vc", "参加を通知してほしいボイスチャンネル/カテゴリ", true),
         OptionData(OptionType.CHANNEL, "text", "通知を表示するテキストチャンネル", true),
     )
 
@@ -23,12 +23,12 @@ class VCSetCommand : Subcommand() {
             data.reply("`vc`、`text`の引数は必ず設定してください。")
             return
         }
-        if (vcChannel.type != ChannelType.VOICE && vcChannel.type != ChannelType.STAGE) {
-            data.reply("`vc`の引数はボイスチャンネルか、ステージチャンネルにしてください。")
+        if (vcChannel.type != ChannelType.VOICE && vcChannel.type != ChannelType.STAGE && vcChannel.type != ChannelType.CATEGORY) {
+            data.reply("`vc`の引数はボイスチャンネルか、ステージチャンネル、ボイスチャンネルを含むカテゴリにしてください。")
             return
         }
-        if (textChannel.type != ChannelType.TEXT) {
-            data.reply("`text`の引数はテキストチャンネルにしてください。")
+        if (textChannel.type != ChannelType.TEXT && textChannel.type != ChannelType.NEWS) {
+            data.reply("`text`の引数はテキストチャンネルか、アナウンスチャンネルにしてください。")
             return
         }
 
