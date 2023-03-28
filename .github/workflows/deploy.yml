@@ -13,10 +13,10 @@ jobs:
         with:
           distribution: temurin
           java-version: 19
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
       - name: Execute Gradle build
         run: ./gradlew build
-      - name: ls
-        run: ls build/libs
       - name: Deploy
         uses: appleboy/scp-action@master
         with:
