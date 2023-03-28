@@ -32,19 +32,28 @@ class VCSetCommand : Subcommand() {
             return
         }
 
-        val vcConfig = Bot.vcConfigDao.findByVCChannelIdAndGuildId(vcChannel.idLong, event.guild!!.idLong)
-        if (vcConfig == null) {
-            val vc = VCConfig(
-                vcChannelId = vcChannel.idLong,
-                textChannelId = textChannel.idLong,
-                guildId = event.guild!!.idLong
-            )
-            Bot.vcConfigDao.createSave(vc)
-            data.reply("${vcChannel.asMention}の参加通知を${textChannel.asMention}に設定しました。")
+        val vcChannels = if (vcChannel.type == ChannelType.CATEGORY) {
+            vcChannel.asCategory().channels.filter { it.type == ChannelType.VOICE || it.type == ChannelType.STAGE }
         } else {
-            data.reply("${vcChannel.asMention}の参加通知を<#${vcConfig.textChannelId}>から${textChannel.asMention}に更新しました。")
-            vcConfig.textChannelId = textChannel.idLong
-            vcConfig.save()
+            listOf(vcChannel)
         }
+
+        val outStr = vcChannels.joinToString("\n") {
+            val vcConfig = Bot.vcConfigDao.findByVCChannelIdAndGuildId(it.idLong, event.guild!!.idLong)
+            if (vcConfig == null) {
+                val vc = VCConfig(
+                    vcChannelId = it.idLong,
+                    textChannelId = textChannel.idLong,
+                    guildId = event.guild!!.idLong
+                )
+                Bot.vcConfigDao.createSave(vc)
+                "${it.asMention}の参加通知を${textChannel.asMention}に設定しました。"
+            } else {
+                vcConfig.textChannelId = textChannel.idLong
+                vcConfig.save()
+                "${it.asMention}の参加通知を<#${vcConfig.textChannelId}>から${textChannel.asMention}に更新しました。"
+            }
+        }
+        data.reply(outStr)
     }
 }

@@ -26,10 +26,20 @@ class VCDeleteCommand : Subcommand() {
             return
         }
 
-        Bot.vcConfigDao.findByVCChannelIdAndGuildId(vcChannel.idLong, event.guild!!.idLong)
-            ?.let { Bot.vcConfigDao.remove(it) }
+        val vcChannels = if (vcChannel.type == ChannelType.CATEGORY) {
+            vcChannel.asCategory().channels.filter { it.type == ChannelType.VOICE || it.type == ChannelType.STAGE }
+        } else {
+            listOf(vcChannel)
+        }
 
-        data.reply("${vcChannel.asMention}のVC参加通知設定を解除しました")
+        val outStr = vcChannels.mapNotNull {
+            Bot.vcConfigDao.findByVCChannelIdAndGuildId(it.idLong, event.guild!!.idLong)
+                ?.let { it1 ->
+                    Bot.vcConfigDao.remove(it1)
+                    "${it.asMention}のVC参加通知設定を解除しました"
+                }
+        }.joinToString("\n")
+        data.reply(outStr)
 
     }
 }
