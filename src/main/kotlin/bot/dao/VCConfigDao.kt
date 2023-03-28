@@ -2,6 +2,7 @@ package bot.dao
 
 import bot.command.util.vc.VCConfig
 import hibernate.HibernateUtil
+import jakarta.transaction.Transactional
 
 class VCConfigDao {
     fun createSave(vcConfig: VCConfig) {
@@ -40,5 +41,14 @@ class VCConfigDao {
         val vcConfig = query.setMaxResults(1).uniqueResult()
         HibernateUtil.closeSession()
         return vcConfig
+    }
+
+    @Transactional
+    fun remove(vcConfig: VCConfig) {
+        val session = HibernateUtil.getSession()
+        val transaction = session.beginTransaction()
+        session.remove(vcConfig)
+        transaction.commit()
+        HibernateUtil.closeSession()
     }
 }
