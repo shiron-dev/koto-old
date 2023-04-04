@@ -17,8 +17,9 @@ class MessageReceiveListener : ListenerAdapter() {
             val quoteEbs =
                 quoteFunction(event.author, event.guild, messageUrls) ?: return
             event.channel.sendMessage("${event.author.asMention}が引用").setEmbeds(quoteEbs.first).queue()
-            if (quoteEbs.second.isNotEmpty()) event.channel.sendMessage("以下、引用のEmbed").setEmbeds(quoteEbs.second)
+            if (quoteEbs.second.isNotEmpty()) event.channel.sendMessage("> 以下、引用のEmbed").setEmbeds(quoteEbs.second)
                 .queue()
+            if (quoteEbs.third.isNotEmpty()) event.channel.sendMessage("> 以下、引用のファイル").addFiles(quoteEbs.third).queue()
         }
     }
 }

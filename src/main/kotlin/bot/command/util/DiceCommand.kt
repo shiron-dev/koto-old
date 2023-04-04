@@ -38,6 +38,6 @@ class DiceCommand: Command() {
         }
 
         val result = (1..countInt).map { (1..maxInt).random() }
-        data.reply("ダイスロール結果: ${result.joinToString(", ")}\n合計: ${result.sum()}")
+        data.reply("`${dice}`のダイスロール結果\n${result.joinToString(", ")}\n合計: ${result.sum()}")
     }
 }
