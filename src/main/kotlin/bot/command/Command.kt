@@ -13,8 +13,14 @@ import net.dv8tion.jda.api.interactions.commands.build.OptionData
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData
 
 abstract class Command : ListenerAdapter() {
-    protected val sharedOptionData =
-        OptionData(OptionType.BOOLEAN, "shared", "他の人にコマンドの実行結果が見えるかどうか。デフォルト値はfalse(見えない)")
+    protected open val sharedDefault = false
+    protected val sharedOptionData by lazy {
+        OptionData(
+            OptionType.BOOLEAN,
+            "shared",
+            "他の人にコマンドの実行結果が見えるかどうか。デフォルト値は${if (sharedDefault) "true(見える)" else "false(見えない)"}"
+        )
+    }
 
     abstract val commandName: String
     abstract val description: String
@@ -32,7 +38,7 @@ abstract class Command : ListenerAdapter() {
                 return
             }
 
-            event.deferReply().setEphemeral((event.getOption("shared")?.asBoolean?.not()) ?: true).queue()
+            event.deferReply().setEphemeral((event.getOption("shared")?.asBoolean?.not()) ?: !sharedDefault).queue()
 
             val user = Bot.userDao.findByDiscordUserIdAndDiscordGuildIdOrMake(event.user.idLong, event.guild!!.idLong)
 

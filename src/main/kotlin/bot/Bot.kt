@@ -4,6 +4,7 @@ import bot.command.Command
 import bot.command.core.AboutCommand
 import bot.command.core.PingCommand
 import bot.command.core.permission.PermissionCommand
+import bot.command.util.DiceCommand
 import bot.command.util.HelloCommand
 import bot.command.util.QuoteCommand
 import bot.command.util.vc.VCCommand
@@ -42,7 +43,7 @@ object Bot {
     val vcConfigDao = VCConfigDao()
 
     val commands: List<Command> =
-        listOf(HelloCommand(), PermissionCommand(), QuoteCommand(), PingCommand(), VCCommand(), AboutCommand())
+        listOf(HelloCommand(), PermissionCommand(), QuoteCommand(), PingCommand(), VCCommand(), AboutCommand(), DiceCommand())
 
     val stated = Date()
     val implementationVersion: String?
