@@ -16,6 +16,7 @@ import net.dv8tion.jda.api.entities.User
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 import net.dv8tion.jda.api.interactions.commands.OptionType
 import net.dv8tion.jda.api.interactions.commands.build.OptionData
+import net.dv8tion.jda.api.utils.FileUpload
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -23,7 +24,7 @@ fun quoteFunction(
     user: User,
     guild: Guild,
     urls: List<String>
-): Pair<List<MessageEmbed>, List<MessageEmbed>>? {
+): Triple<List<MessageEmbed>, List<MessageEmbed>,List<FileUpload>>? {
     if (permissionCheck(
             CommandPath("koto.util.quote"),
             user.idLong,
@@ -36,6 +37,7 @@ fun quoteFunction(
     val messages = runBlocking {
         urls.map { async { getMessage(it, guild) } }.awaitAll()
     }.filterNotNull()
+    val files = mutableListOf<Message.Attachment>()
     for (msg in messages) {
         val eb = EmbedBuilder()
 
@@ -44,9 +46,12 @@ fun quoteFunction(
         ebs.add(eb.build())
 
         quoteEbs += msg.embeds
+
+        files += msg.attachments
     }
 
-    return Pair(ebs, quoteEbs)
+    val ups=  files.map { FileUpload.fromData(it.proxy.download().get(),it.fileName) }
+    return Triple(ebs, quoteEbs,ups)
 }
 
 private suspend fun getMessage(url: String, guild: Guild): Message? {
@@ -88,7 +93,8 @@ class QuoteCommand : Command() {
         event.channel.sendMessage("${event.user.asMention}が引用").setEmbeds(quoteEbs.first).queue {
             data.reply("引用しました。\n${it.jumpUrl}")
         }
-        if (quoteEbs.second.isNotEmpty()) event.channel.sendMessage("以下、引用のEmbed").setEmbeds(quoteEbs.second)
+        if (quoteEbs.second.isNotEmpty()) event.channel.sendMessage("> 以下、引用のEmbed").setEmbeds(quoteEbs.second)
             .queue()
+        if (quoteEbs.third.isNotEmpty()) event.channel.sendMessage("> 以下、引用のファイル").addFiles(quoteEbs.third).queue()
     }
 }
