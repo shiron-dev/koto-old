@@ -10,6 +10,7 @@ import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.entities.MessageEmbed
 import net.dv8tion.jda.api.entities.User
+import net.dv8tion.jda.api.entities.channel.middleman.GuildMessageChannel
 import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel
 import net.dv8tion.jda.api.utils.FileUpload
 import kotlin.coroutines.resume
@@ -26,7 +27,6 @@ private fun getQuoteEbs(
             guild.idLong
         ).runnable != true
     ) return null
-
     val ebs = mutableListOf<MessageEmbed>()
     val quoteEbs = mutableListOf<MessageEmbed>()
     val messages = runBlocking {
@@ -56,8 +56,10 @@ private suspend fun getMessage(url: String, guild: Guild): Message? {
     val channelId = tokens[5].toLong()
     val messageId = tokens[6].toLong()
     if (guild.idLong != guildId) return null
+    val channel = guild.getChannelById(GuildMessageChannel::class.java, channelId)
+
     return suspendCoroutine { continuation ->
-        guild.getTextChannelById(channelId)?.retrieveMessageById(messageId)?.queue {
+        channel?.retrieveMessageById(messageId)?.queue {
             continuation.resume(it)
         }
     }
