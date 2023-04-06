@@ -13,7 +13,7 @@ group = "dev.shiron"
 val versionDetails: groovy.lang.Closure<com.palantir.gradle.gitversion.VersionDetails> by extra
 val details = versionDetails()
 version = details.lastTag
-val implementationVersion = "$version.${details.gitHash.substring(0, 7)}"
+val implementationVersion = "$version-#${details.gitHash.substring(0, 7)}"
 
 repositories {
     mavenCentral()
