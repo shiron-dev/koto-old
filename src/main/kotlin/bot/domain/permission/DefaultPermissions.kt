@@ -1,4 +1,4 @@
-package bot.permission
+package bot.domain.permission
 
 import bot.Bot
 import bot.command.CommandPath

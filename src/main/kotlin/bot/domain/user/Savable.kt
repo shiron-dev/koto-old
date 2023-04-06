@@ -1,4 +1,4 @@
-package bot.user
+package bot.domain.user
 
 interface Savable {
     fun save()

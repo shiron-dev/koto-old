@@ -3,8 +3,8 @@ package bot.command.core.permission
 import bot.Bot
 import bot.command.CommandEventData
 import bot.command.Subcommand
-import bot.permission.PermissionManager
-import bot.permission.permissionCheck
+import bot.domain.permission.PermissionManager
+import bot.domain.permission.permissionCheck
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 import net.dv8tion.jda.api.interactions.commands.OptionType
 import net.dv8tion.jda.api.interactions.commands.build.OptionData

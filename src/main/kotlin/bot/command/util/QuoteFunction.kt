@@ -4,7 +4,7 @@ import bot.Bot
 import bot.command.Command
 import bot.command.CommandEventData
 import bot.command.CommandPath
-import bot.permission.permissionCheck
+import bot.domain.permission.permissionCheck
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.runBlocking

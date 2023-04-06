@@ -13,9 +13,9 @@
         <property name="hibernate.dialect">org.hibernate.community.dialect.SQLiteDialect</property>
         <property name="hbm2ddl.auto">update</property>
 
-        <mapping class="bot.user.DiscordUser"/>
-        <mapping class="bot.user.DiscordRole"/>
-        <mapping class="bot.permission.PermissionManager"/>
+        <mapping class="bot.domain.user.DiscordUser"/>
+        <mapping class="bot.domain.user.DiscordRole"/>
+        <mapping class="bot.domain.permission.PermissionManager"/>
         <mapping class="bot.command.util.vc.VCConfig"/>
     </session-factory>
 
