@@ -1,7 +1,7 @@
 package bot.dao
 
 import bot.Bot
-import bot.user.DiscordRole
+import bot.domain.user.DiscordRole
 import hibernate.HibernateUtil
 
 class RoleDao {

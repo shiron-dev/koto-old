@@ -1,7 +1,7 @@
 package bot.dao
 
 import bot.Bot
-import bot.user.DiscordUser
+import bot.domain.user.DiscordUser
 import hibernate.HibernateUtil
 
 @Suppress("unused")
