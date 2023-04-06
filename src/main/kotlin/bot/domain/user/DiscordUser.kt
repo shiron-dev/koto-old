@@ -1,28 +1,28 @@
-package bot.user
+package bot.domain.user
 
 import bot.Bot
-import bot.permission.PermissionManager
 import jakarta.persistence.*
+import bot.domain.permission.PermissionManager
 
 @Entity
-@Table(name = "roles")
-class DiscordRole(
+@Table(name = "users")
+class DiscordUser(
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     val id: Long = 0,
 
-    @Column(name = "role_id")
-    var roleId: Long,
+    @Column(name = "user_id")
+    var userId: Long? = null,
 
     @Column(name = "guild_id")
-    var guildId: Long
+    var guildId: Long? = null,
 ) : Permissionable {
-
     @OneToOne(cascade = [CascadeType.ALL])
     override val permissions = PermissionManager()
 
     override fun save() {
-        Bot.roleDao.save(this)
+        Bot.userDao.save(this)
     }
 }

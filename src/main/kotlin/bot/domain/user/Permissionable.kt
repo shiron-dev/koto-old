@@ -1,6 +1,6 @@
-package bot.user
+package bot.domain.user
 
-import bot.permission.PermissionManager
+import bot.domain.permission.PermissionManager
 
 interface Permissionable : Savable {
     val permissions: PermissionManager
