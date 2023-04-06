@@ -1,8 +1,8 @@
-package bot.permission
+package bot.domain.permission
 
 import bot.Bot
 import bot.command.CommandPath
-import bot.user.DiscordUser
+import bot.domain.user.DiscordUser
 import java.io.IOException
 import kotlin.reflect.KMutableProperty
 import kotlin.reflect.full.memberProperties

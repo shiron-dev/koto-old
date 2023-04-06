@@ -1,9 +1,9 @@
 package bot.command
 
 import bot.Bot
-import bot.permission.CommandPermission
-import bot.permission.permissionCheck
-import bot.user.DiscordUser
+import bot.domain.permission.CommandPermission
+import bot.domain.permission.permissionCheck
+import bot.domain.user.DiscordUser
 import net.dv8tion.jda.api.Permission
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter

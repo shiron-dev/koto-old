@@ -1,4 +1,4 @@
-package bot.permission
+package bot.domain.permission
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import bot.command.CommandPath

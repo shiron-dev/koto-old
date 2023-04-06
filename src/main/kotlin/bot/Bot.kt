@@ -6,7 +6,7 @@ import bot.command.core.PingCommand
 import bot.command.core.permission.PermissionCommand
 import bot.command.util.DiceCommand
 import bot.command.util.HelloCommand
-import bot.command.util.QuoteCommand
+import bot.command.util.quote.QuoteCommand
 import bot.command.util.vc.VCCommand
 import bot.dao.RoleDao
 import bot.dao.UserDao

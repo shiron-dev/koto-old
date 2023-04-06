@@ -1,4 +1,4 @@
-package bot.permission
+package bot.domain.permission
 
 data class CommandPermission(var runnable: Boolean?) {
     companion object {

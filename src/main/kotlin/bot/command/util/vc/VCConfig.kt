@@ -1,7 +1,7 @@
 package bot.command.util.vc
 
 import bot.Bot
-import bot.user.Savable
+import bot.domain.user.Savable
 import jakarta.persistence.*
 
 @Entity

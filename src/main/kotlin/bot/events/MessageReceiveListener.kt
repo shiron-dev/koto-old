@@ -1,7 +1,7 @@
 package bot.events
 
 import bot.DISCORD_MESSAGE_URL_PREFIX
-import bot.command.util.quoteFunction
+import bot.command.util.quote.sendQuoteMessage
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
 
@@ -14,12 +14,7 @@ class MessageReceiveListener : ListenerAdapter() {
         if (!event.channel.canTalk()) return
         val messageUrls = messageUrlReg.findAll(event.message.contentRaw).map { it.value }.toList()
         if (messageUrls.isNotEmpty()) {
-            val quoteEbs =
-                quoteFunction(event.author, event.guild, messageUrls) ?: return
-            event.channel.sendMessage("${event.author.asMention}が引用").setEmbeds(quoteEbs.first).queue()
-            if (quoteEbs.second.isNotEmpty()) event.channel.sendMessage("> 以下、引用のEmbed").setEmbeds(quoteEbs.second)
-                .queue()
-            if (quoteEbs.third.isNotEmpty()) event.channel.sendMessage("> 以下、引用のファイル").addFiles(quoteEbs.third).queue()
+            sendQuoteMessage(event.author, event.guild, messageUrls, event.channel)
         }
     }
 }
