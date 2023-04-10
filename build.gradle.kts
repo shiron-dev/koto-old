@@ -31,7 +31,7 @@ dependencies {
     implementation("org.hibernate:hibernate-core:6.2.0.CR2")
 
     implementation("org.slf4j:slf4j-log4j12:2.0.6")
-    implementation("net.dv8tion:JDA:5.0.0-beta.5")
+    implementation("net.dv8tion:JDA:5.0.0-beta.8")
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.2")
 }
