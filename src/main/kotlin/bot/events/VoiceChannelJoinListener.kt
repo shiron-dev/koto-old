@@ -28,17 +28,17 @@ class VoiceChannelJoinListener : ListenerAdapter() {
 
         fun mkEbJoin() {
             eb.setTitle("Join")
-            eb.setDescription("${event.member.asMention}\nIN ${event.channelJoined!!.asMention}")
+            eb.setDescription("${event.member.nickname}(${event.member.asMention})\nIN ${event.channelJoined!!.asMention}")
         }
 
         fun mkEbLeft() {
             eb.setTitle("Left")
-            eb.setDescription("${event.member.asMention}\nOUT ${event.channelLeft!!.asMention}")
+            eb.setDescription("${event.member.nickname}(${event.member.asMention})\nOUT ${event.channelLeft!!.asMention}")
         }
 
         fun mkEbChange() {
             eb.setTitle("Change")
-            eb.setDescription("${event.member.asMention}\nOUT ${event.channelLeft!!.asMention} -> IN ${event.channelJoined!!.asMention}")
+            eb.setDescription("${event.member.nickname}(${event.member.asMention})\nOUT ${event.channelLeft!!.asMention} -> IN ${event.channelJoined!!.asMention}")
         }
 
         fun getTextOrNewsChannel(channelId: Long): StandardGuildMessageChannel? {
