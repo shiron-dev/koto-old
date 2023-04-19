@@ -11,7 +11,12 @@ class MessageReceiveListener : ListenerAdapter() {
 
     override fun onMessageReceived(event: MessageReceivedEvent) {
         if (event.author.isBot) return
+        // VC Read
+        
+
         if (!event.channel.canTalk()) return
+
+        // Quote
         val messageUrls = messageUrlReg.findAll(event.message.contentRaw).map { it.value }.toList()
         if (messageUrls.isNotEmpty()) {
             sendQuoteMessage(event.author, event.guild, messageUrls, event.channel)
