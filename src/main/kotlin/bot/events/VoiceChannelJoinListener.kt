@@ -11,6 +11,13 @@ import java.util.*
 
 class VoiceChannelJoinListener : ListenerAdapter() {
     override fun onGuildVoiceUpdate(event: GuildVoiceUpdateEvent) {
+        if (event.channelLeft?.members?.size == 1) {
+            val audioManager = event.guild.audioManager
+            if (audioManager.connectedChannel?.idLong == event.channelLeft?.idLong) {
+                audioManager.closeAudioConnection()
+            }
+        }
+
         val vcJoinConfig =
             event.channelJoined?.idLong?.let { Bot.vcConfigDao.findByVCChannelIdAndGuildId(it, event.guild.idLong) }
         val vcLeftConfig =
