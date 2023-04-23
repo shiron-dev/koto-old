@@ -19,7 +19,7 @@ repositories {
     mavenCentral()
 
     maven {
-        setUrl("https://m2.dv8tion.net/releases")
+        setUrl("https://jitpack.io")
     }
 }
 
@@ -39,7 +39,7 @@ dependencies {
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.2")
 
-    implementation("com.sedmelluq:lavaplayer:1.3.78")
+    implementation("com.github.walkyst:lavaplayer-fork:1.4.0")
 }
 
 tasks.test {
