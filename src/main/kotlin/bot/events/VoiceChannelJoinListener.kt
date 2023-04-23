@@ -11,6 +11,21 @@ import java.util.*
 
 class VoiceChannelJoinListener : ListenerAdapter() {
     override fun onGuildVoiceUpdate(event: GuildVoiceUpdateEvent) {
+        if (event.channelJoined == null && event.channelLeft != null && event.member.idLong == Bot.jda.selfUser.idLong) {
+            Bot.vcReadMap[event.guild.idLong] = -1
+        }
+
+        if (event.channelLeft?.members?.size == 1) {
+            val audioManager = event.guild.audioManager
+            if (audioManager.connectedChannel?.idLong == event.channelLeft?.idLong) {
+                audioManager.closeAudioConnection()
+            }
+        }
+
+        if (event.member.user.isBot) {
+            return
+        }
+
         val vcJoinConfig =
             event.channelJoined?.idLong?.let { Bot.vcConfigDao.findByVCChannelIdAndGuildId(it, event.guild.idLong) }
         val vcLeftConfig =
@@ -28,17 +43,17 @@ class VoiceChannelJoinListener : ListenerAdapter() {
 
         fun mkEbJoin() {
             eb.setTitle("Join")
-            eb.setDescription("${event.member.asMention}\nIN ${event.channelJoined!!.asMention}")
+            eb.setDescription("${event.member.nickname}(${event.member.asMention})\nIN ${event.channelJoined!!.asMention}")
         }
 
         fun mkEbLeft() {
             eb.setTitle("Left")
-            eb.setDescription("${event.member.asMention}\nOUT ${event.channelLeft!!.asMention}")
+            eb.setDescription("${event.member.nickname}(${event.member.asMention})\nOUT ${event.channelLeft!!.asMention}")
         }
 
         fun mkEbChange() {
             eb.setTitle("Change")
-            eb.setDescription("${event.member.asMention}\nOUT ${event.channelLeft!!.asMention} -> IN ${event.channelJoined!!.asMention}")
+            eb.setDescription("${event.member.nickname}(${event.member.asMention})\nOUT ${event.channelLeft!!.asMention} -> IN ${event.channelJoined!!.asMention}")
         }
 
         fun getTextOrNewsChannel(channelId: Long): StandardGuildMessageChannel? {

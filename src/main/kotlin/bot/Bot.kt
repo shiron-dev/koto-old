@@ -2,11 +2,13 @@ package bot
 
 import bot.command.Command
 import bot.command.core.AboutCommand
+import bot.command.core.LeaveCommand
 import bot.command.core.PingCommand
 import bot.command.core.permission.PermissionCommand
 import bot.command.util.DiceCommand
 import bot.command.util.HelloCommand
 import bot.command.util.quote.QuoteCommand
+import bot.command.util.read.VCReadCommand
 import bot.command.util.vc.VCCommand
 import bot.dao.RoleDao
 import bot.dao.UserDao
@@ -38,15 +40,29 @@ object Bot {
 
     val isDevMode = toEnvBoolean(dotenv["DEV_FLAG"])
 
+    val audioEngineHost: String? = dotenv["AUDIO_ENGINE_HOST"]
+
     val userDao = UserDao()
     val roleDao = RoleDao()
     val vcConfigDao = VCConfigDao()
 
     val commands: List<Command> =
-        listOf(HelloCommand(), PermissionCommand(), QuoteCommand(), PingCommand(), VCCommand(), AboutCommand(), DiceCommand())
+        listOf(
+            HelloCommand(),
+            PermissionCommand(),
+            QuoteCommand(),
+            PingCommand(),
+            VCCommand(),
+            AboutCommand(),
+            DiceCommand(),
+            VCReadCommand(),
+            LeaveCommand()
+        )
 
     val stated = Date()
     val implementationVersion: String?
+
+    val vcReadMap = mutableMapOf<Long, Long>()
 
     init {
 
@@ -76,20 +92,24 @@ object Bot {
     fun start() {
         if (isDevMode) {
             // 開発モード
-            // 全削除
-            jda.retrieveCommands().queue {
-                for (cmd in it) {
-                    jda.deleteCommandById(cmd.id).queue()
-                }
-            }
-
-            jda.updateCommands().addCommands(commands.map { it.slashCommandData }).queue()
             val guild = dotenv["DEV_GUILD"]?.let { jda.getGuildById(it) }
+
             for (cmd in commands) {
                 jda.addEventListener(cmd)
             }
-            guild?.updateCommands()
-                ?.addCommands(commands.map { it.slashCommandData })?.queue()
+            guild?.retrieveCommands()?.queue {
+                if (it.size == commands.size) return@queue
+
+                // 全削除
+                jda.retrieveCommands().queue { it1 ->
+                    for (cmd in it1) {
+                        jda.deleteCommandById(cmd.id).queue()
+                    }
+                }
+
+                guild.updateCommands()
+                    .addCommands(commands.map { it1 -> it1.slashCommandData }).queue()
+            }
 
             dotenv["DEV_CHANNEL"]?.let { guild?.getTextChannelById(it)?.sendMessage("Started")?.queue() }
         } else {
