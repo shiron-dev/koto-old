@@ -22,6 +22,10 @@ class VoiceChannelJoinListener : ListenerAdapter() {
             }
         }
 
+        if (event.member.user.isBot) {
+            return
+        }
+
         val vcJoinConfig =
             event.channelJoined?.idLong?.let { Bot.vcConfigDao.findByVCChannelIdAndGuildId(it, event.guild.idLong) }
         val vcLeftConfig =
