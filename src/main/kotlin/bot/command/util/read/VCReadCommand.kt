@@ -17,8 +17,6 @@ class VCReadCommand : Command() {
 
         val vc = user.voiceState?.channel ?: return
 
-        Bot.vcReadMap[vc.guild.idLong] = event.messageChannel.idLong
-
         val audioManager = event.guild!!.audioManager
 
         if (audioManager.isConnected) {
@@ -26,7 +24,9 @@ class VCReadCommand : Command() {
             return
         }
 
+        Bot.vcReadMap[vc.guild.idLong] = event.channel.idLong
+
         audioManager.openAudioConnection(vc)
-        data.reply("${vc.asMention}に接続しました。")
+        data.reply("${vc.asMention}に接続しました。\n" + "${event.channel.asMention}のメッセージを読み上げます。")
     }
 }
