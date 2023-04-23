@@ -90,20 +90,24 @@ object Bot {
     fun start() {
         if (isDevMode) {
             // 開発モード
-            // 全削除
-            jda.retrieveCommands().queue {
-                for (cmd in it) {
-                    jda.deleteCommandById(cmd.id).queue()
-                }
-            }
-
-            jda.updateCommands().addCommands(commands.map { it.slashCommandData }).queue()
             val guild = dotenv["DEV_GUILD"]?.let { jda.getGuildById(it) }
+
             for (cmd in commands) {
                 jda.addEventListener(cmd)
             }
-            guild?.updateCommands()
-                ?.addCommands(commands.map { it.slashCommandData })?.queue()
+            guild?.retrieveCommands()?.queue {
+                if (it.size == commands.size) return@queue
+
+                // 全削除
+                jda.retrieveCommands().queue { it1 ->
+                    for (cmd in it1) {
+                        jda.deleteCommandById(cmd.id).queue()
+                    }
+                }
+
+                guild.updateCommands()
+                    .addCommands(commands.map { it1 -> it1.slashCommandData }).queue()
+            }
 
             dotenv["DEV_CHANNEL"]?.let { guild?.getTextChannelById(it)?.sendMessage("Started")?.queue() }
         } else {
