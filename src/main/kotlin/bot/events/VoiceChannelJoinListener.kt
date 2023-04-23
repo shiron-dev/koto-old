@@ -11,7 +11,7 @@ import java.util.*
 
 class VoiceChannelJoinListener : ListenerAdapter() {
     override fun onGuildVoiceUpdate(event: GuildVoiceUpdateEvent) {
-        if (event.member.idLong == Bot.jda.selfUser.idLong) {
+        if (event.channelJoined == null && event.channelLeft != null && event.member.idLong == Bot.jda.selfUser.idLong) {
             Bot.vcReadMap[event.guild.idLong] = -1
         }
 
