@@ -19,14 +19,21 @@ class AboutCommand : Command() {
         val fmt = SimpleDateFormat()
         fmt.timeZone = timeZoneJP
 
+        val now = Date()
+        val diff = now.time - Bot.stated.time
+        val format = SimpleDateFormat("HHHH mm")
+        val formattedTime = format.format(Date(diff))
+
         data.reply(
             "${Bot.jda.selfUser.asMention}だよ！よろしくね♪\n" +
                     (if (Bot.isDevMode) ":warning: 開発モード:warning: \n" else "") +
-                    (dotenv["SUPPORT_SERVER_URL"]?.let { "サポートサーバー: $it\n" }?:"")+
+                    (dotenv["SUPPORT_SERVER_URL"]?.let { "サポートサーバー: $it\n" } ?: "") +
                     "> 情報\n" +
                     "version: ${Bot.implementationVersion}\n" +
                     "ping: `${Bot.jda.gatewayPing}ms`\n" +
-                    "started: ${fmt.format(Bot.stated)}"
+                    "started: ${fmt.format(Bot.stated)} ($formattedTime)\n" +
+                    "> ライセンス\n" +
+                    "音声読み上げ: `VOICEVOX:ずんだもん`"
         )
     }
 }
