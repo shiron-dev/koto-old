@@ -56,6 +56,7 @@ fun makeAudio(text: String, speakerId: Int = 1): ByteArray {
     audioQueryConnection.connect()
 
     val queryJson = audioQueryConnection.inputStream.bufferedReader().use { it.readText() }
+        .replace(""""speedScale":[+-]?\d+(?:\.\d+)?""".toRegex(), """"speedScale": 1.4""")
 
     val synthesisUrl = URL("http://${Bot.audioEngineHost}/synthesis?speaker=${speakerId}")
     val synthesisConnection = synthesisUrl.openConnection() as HttpURLConnection
