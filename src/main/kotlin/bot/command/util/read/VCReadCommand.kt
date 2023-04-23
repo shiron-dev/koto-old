@@ -1,5 +1,6 @@
 package bot.command.util.read
 
+import bot.Bot
 import bot.command.Command
 import bot.command.CommandEventData
 import bot.command.CommandPath
@@ -15,6 +16,8 @@ class VCReadCommand : Command() {
         val user = members.find { event.user.idLong == it.idLong } ?: return
 
         val vc = user.voiceState?.channel ?: return
+
+        Bot.vcReadMap[vc.guild.idLong] = event.messageChannel.idLong
 
         val audioManager = event.guild!!.audioManager
 

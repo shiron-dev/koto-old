@@ -62,6 +62,8 @@ object Bot {
     val stated = Date()
     val implementationVersion: String?
 
+    val vcReadMap = mutableMapOf<Long, Long>()
+
     init {
 
         val manifestStream = javaClass.getResourceAsStream("/META-INF/MANIFEST.MF")

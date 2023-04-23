@@ -31,7 +31,9 @@ class AboutCommand : Command() {
                     "> 情報\n" +
                     "version: ${Bot.implementationVersion}\n" +
                     "ping: `${Bot.jda.gatewayPing}ms`\n" +
-                    "started: ${fmt.format(Bot.stated)} ($formattedTime)"
+                    "started: ${fmt.format(Bot.stated)} ($formattedTime)\n" +
+                    "> ライセンス\n" +
+                    "音声読み上げ: `VOICEVOX:ずんだもん`"
         )
     }
 }

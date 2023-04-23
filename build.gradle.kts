@@ -17,6 +17,10 @@ val implementationVersion = "$version-#${details.gitHash.substring(0, 7)}"
 
 repositories {
     mavenCentral()
+
+    maven {
+        setUrl("https://m2.dv8tion.net/releases")
+    }
 }
 
 dependencies {
@@ -31,9 +35,11 @@ dependencies {
     implementation("org.hibernate:hibernate-core:6.2.0.CR2")
 
     implementation("org.slf4j:slf4j-log4j12:2.0.6")
-    implementation("net.dv8tion:JDA:5.0.0-beta.5")
+    implementation("net.dv8tion:JDA:5.0.0-beta.8")
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.2")
+
+    implementation("com.sedmelluq:lavaplayer:1.3.78")
 }
 
 tasks.test {
@@ -62,9 +68,11 @@ tasks.withType<Jar> {
         "META-INF/versions/9/module-info.class",
         "META-INF/LICENSE",
         "META-INF/NOTICE",
+        "META-INF/NOTICE.md",
+        "META-INF/NOTICE.txt",
         "module-info.class",
         "META-INF/LICENSE.txt",
         "META-INF/LICENSE.md",
-        "META-INF/NOTICE.md"
+        "META-INF/DEPENDENCIES"
     )
 }
