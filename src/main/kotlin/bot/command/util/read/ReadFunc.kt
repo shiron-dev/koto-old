@@ -19,7 +19,8 @@ import javax.sound.sampled.AudioInputStream
 fun vcRead(message: Message) {
     val audioManager = message.guild.audioManager
     if (audioManager.isConnected) {
-        val audioBytes = makeAudio(message.contentRaw)
+        val speakString = messageToSpeak(message)
+        val audioBytes = makeAudio(speakString)
 
         val audioFormat = AudioFormat(24000f, 16, 1, true, false)
         val byteArrayInputStream = ByteArrayInputStream(audioBytes)
@@ -43,6 +44,44 @@ fun vcRead(message: Message) {
         player.playTrack(track)
 
         audioManager.sendingHandler = VCReadAudioHandler(player)
+    }
+}
+
+fun messageToSpeak(message: Message): String {
+    val urlReg = Regex("""(https?|ftp)://[^\s/$.?#].\S*""")
+    val fileStr = if (message.attachments.size <= 5)
+        "${if (message.attachments.isNotEmpty()) "。添付されたファイル。" else ""}${
+            message.attachments.joinToString("。") {
+                it.contentType?.let { it1 ->
+                    convertMediaTypeToJapaneseName(
+                        it1
+                    )
+                } ?: "不明なファイル"
+            }
+        }" else "。添付されたファイルがあります。"
+    println(fileStr)
+    return "${urlReg.replace(message.contentRaw, "(URL)")}$fileStr"
+}
+
+fun convertMediaTypeToJapaneseName(mediaType: String): String? {
+    val (type, subtype) = mediaType.split("/")
+    return when (type) {
+        "text" -> "テキスト"
+        "image" -> "画像"
+        "audio" -> "音声"
+        "video" -> "動画"
+        "model" -> "3D"
+        "application" -> {
+            when (subtype) {
+                "msword", "vnd.openxmlformats-officedocument.wordprocessingml.document" -> "ワード"
+                "vnd.ms-excel", "vnd.openxmlformats-officedocument.spreadsheetml.sheet" -> "エクセル"
+                "vnd.ms-powerpoint", "vnd.openxmlformats-officedocument.presentationml.presentation" -> "パワーポイント"
+                "vnd.oasis.opendocument.text" -> "オープンドキュメント"
+                else -> subtype
+            }
+        }
+
+        else -> null
     }
 }
 
