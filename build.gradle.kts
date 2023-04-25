@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm") version "1.8.10"
     application
-    kotlin("plugin.jpa") version "1.6.21"
+    kotlin("plugin.jpa") version "1.8.21"
 
     id("com.palantir.git-version") version "2.0.0"
 }
