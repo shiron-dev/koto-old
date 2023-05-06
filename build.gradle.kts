@@ -39,7 +39,7 @@ dependencies {
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.2")
 
-    implementation("com.github.walkyst:lavaplayer-fork:1.4.0")
+    implementation("com.github.walkyst:lavaplayer-fork:1.4.1")
 }
 
 tasks.test {
