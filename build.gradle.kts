@@ -5,7 +5,7 @@ plugins {
     application
     kotlin("plugin.jpa") version "1.8.21"
 
-    id("com.palantir.git-version") version "2.0.0"
+    id("com.palantir.git-version") version "3.0.0"
 }
 
 group = "dev.shiron"
