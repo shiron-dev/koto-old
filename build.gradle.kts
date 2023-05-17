@@ -37,7 +37,7 @@ dependencies {
     implementation("org.slf4j:slf4j-log4j12:2.0.7")
     implementation("net.dv8tion:JDA:5.0.0-beta.9")
 
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.0")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.1")
 
     implementation("com.github.walkyst:lavaplayer-fork:1.4.1")
 }
