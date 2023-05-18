@@ -32,7 +32,7 @@ dependencies {
 
     implementation("org.xerial:sqlite-jdbc:3.41.2.1")
     implementation("org.hibernate.orm:hibernate-community-dialects:6.2.2.Final")
-    implementation("org.hibernate:hibernate-core:6.2.2.Final")
+    implementation("org.hibernate:hibernate-core:6.2.3.Final")
 
     implementation("org.slf4j:slf4j-log4j12:2.0.7")
     implementation("net.dv8tion:JDA:5.0.0-beta.9")
