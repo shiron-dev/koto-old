@@ -30,7 +30,7 @@ dependencies {
 
     implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
 
-    implementation("org.xerial:sqlite-jdbc:3.41.2.1")
+    implementation("org.xerial:sqlite-jdbc:3.42.0.0")
     implementation("org.hibernate.orm:hibernate-community-dialects:6.2.2.Final")
     implementation("org.hibernate:hibernate-core:6.2.2.Final")
 
