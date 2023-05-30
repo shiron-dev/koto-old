@@ -8,7 +8,7 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 class HelloCommand : Command() {
     override val commandName = "hello"
     override val description = "Hello"
-    override val commandPath = CommandPath("koto.util.hello")
+    override val commandPath = CommandPath.fromString("koto.util.hello")
 
     override fun onSlashCommand(event: SlashCommandInteractionEvent, data: CommandEventData) {
         data.reply("Hello ${event.user.asMention}!")

@@ -8,7 +8,7 @@ class PermissionCommand : SubcommandableCommand() {
 
     override val commandName = "permission"
     override val description = "権限を表示、設定し管理することができます。"
-    override val commandPath = CommandPath("koto.core.permission")
+    override val commandPath = CommandPath.fromString("koto.core.permission")
 
     override val subcommands = listOf<Subcommand>(SetCommand(), ListCommand(), CheckUserCommand())
 

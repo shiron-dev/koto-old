@@ -11,7 +11,7 @@ import net.dv8tion.jda.api.interactions.commands.build.OptionData
 class QuoteCommand : Command() {
     override val commandName = "quote"
     override val description = "引用"
-    override val commandPath = CommandPath("koto.util.quote")
+    override val commandPath = CommandPath.fromString("koto.util.quote")
     override val commandOptions = listOf(OptionData(OptionType.STRING, "url", "引用するメッセージのURL", true))
 
     override fun onSlashCommand(event: SlashCommandInteractionEvent, data: CommandEventData) {

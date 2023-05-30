@@ -41,7 +41,7 @@ abstract class Subcommand {
 
     @Suppress("unused")
     val commandPath: CommandPath?
-        get() = parentsPath?.let { CommandPath("$it.$subcommandName") }
+        get() = parentsPath?.let { CommandPath.fromString("$it.$subcommandName") }
 
     val subcommandData: SubcommandData
         get() = SubcommandData(subcommandName, "$parentsPath : $description").addOptions(subcommandOptions)

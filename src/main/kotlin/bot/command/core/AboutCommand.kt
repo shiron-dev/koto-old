@@ -12,7 +12,7 @@ import java.util.*
 class AboutCommand : Command() {
     override val commandName = "about"
     override val description = "Botについての説明を表示します。"
-    override val commandPath = CommandPath("koto.core.about")
+    override val commandPath = CommandPath.fromString("koto.core.about")
 
     override fun onSlashCommand(event: SlashCommandInteractionEvent, data: CommandEventData) {
         val timeZoneJP = TimeZone.getTimeZone("Asia/Tokyo")

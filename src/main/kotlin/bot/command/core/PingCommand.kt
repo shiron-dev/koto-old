@@ -9,7 +9,7 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 class PingCommand : Command() {
     override val commandName = "ping"
     override val description = "Ping"
-    override val commandPath = CommandPath("koto.core.ping")
+    override val commandPath = CommandPath.fromString("koto.core.ping")
 
     override fun onSlashCommand(event: SlashCommandInteractionEvent, data: CommandEventData) {
         data.reply("Pong! `${Bot.jda.gatewayPing}ms`")

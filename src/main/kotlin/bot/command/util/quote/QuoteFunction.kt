@@ -21,11 +21,13 @@ private fun getQuoteEbs(
     guild: Guild,
     urls: List<String>
 ): Triple<List<MessageEmbed>, List<MessageEmbed>, List<FileUpload>>? {
-    if (permissionCheck(
-            CommandPath("koto.util.quote"),
-            user.idLong,
-            guild.idLong
-        ).runnable != true
+    if (CommandPath.fromString("koto.util.quote")?.let {
+            permissionCheck(
+                it,
+                user.idLong,
+                guild.idLong
+            ).runnable
+        } != true
     ) return null
     val ebs = mutableListOf<MessageEmbed>()
     val quoteEbs = mutableListOf<MessageEmbed>()

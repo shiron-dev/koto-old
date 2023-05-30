@@ -23,7 +23,7 @@ class CheckUserCommand : Subcommand() {
             return
         }
         val permissionManager = PermissionManager()
-        for (command in Bot.commands.map { it.commandPath }) {
+        for (command in Bot.commands.mapNotNull { it.commandPath }) {
             permissionManager[command] = permissionCheck(command, user.idLong, event.guild!!.idLong)
         }
         val permissionStr =
