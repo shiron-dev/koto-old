@@ -1,8 +1,8 @@
 package bot.domain.permission
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import bot.command.CommandPath
 import com.fasterxml.jackson.core.type.TypeReference
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import jakarta.persistence.*
 
@@ -48,6 +48,6 @@ class PermissionsConverter : AttributeConverter<MutableMap<CommandPath, CommandP
         return ObjectMapper().registerKotlinModule().readValue(
             dbData,
             object : TypeReference<Map<String, CommandPermission>>() {}
-        ).mapKeys { CommandPath(it.key) }.toMutableMap()
+        ).mapKeys { CommandPath.fromString(it.key) }.filter { it.key != null }.mapKeys { it.key!! }.toMutableMap()
     }
 }

@@ -8,7 +8,7 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 class LeaveCommand : Command() {
     override val commandName = "leave"
     override val description = "BotをVCから退出させます"
-    override val commandPath = CommandPath("koto.core.leave")
+    override val commandPath = CommandPath.fromString("koto.core.leave")
 
     override fun onSlashCommand(event: SlashCommandInteractionEvent, data: CommandEventData) {
         val audioManager = event.guild!!.audioManager

@@ -7,10 +7,10 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.interactions.commands.OptionType
 import net.dv8tion.jda.api.interactions.commands.build.OptionData
 
-class DiceCommand: Command() {
+class DiceCommand : Command() {
     override val commandName = "dice"
     override val description = "ダイスロールを行います。デフォルトで結果が周囲に表示されます。"
-    override val commandPath = CommandPath("koto.util.dice")
+    override val commandPath = CommandPath.fromString("koto.util.dice")
     override val commandOptions = listOf(OptionData(OptionType.STRING, "dice", "ex. 1d6, 2d3 e.t.c.", true))
 
     override val sharedDefault = true

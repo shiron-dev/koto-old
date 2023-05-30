@@ -7,7 +7,6 @@ import bot.command.Subcommand
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 import net.dv8tion.jda.api.interactions.commands.OptionType
 import net.dv8tion.jda.api.interactions.commands.build.OptionData
-import java.lang.IllegalArgumentException
 
 class SetCommand : Subcommand() {
 
@@ -59,7 +58,7 @@ class SetCommand : Subcommand() {
         val errorStr = "`cmd`にはコマンドの実行名(スラッシュコマンドを実行するときの名前`/<実行名>`やCommandPathを指定できます。\n" +
                 "各コマンドのCommandPathは`/permission list`やコマンドの説明文、`/help`などで調べることができます。"
         val cmdPath = try {
-            val cp = CommandPath(cmd)
+            val cp = CommandPath.fromString(cmd)
             Bot.commands.find { it.commandPath == cp } ?: run {
                 data.reply("存在しないCommandPathです。\n$errorStr")
                 return
@@ -70,6 +69,9 @@ class SetCommand : Subcommand() {
                 data.reply("`cmd`が不正な形です。\n$errorStr")
                 return
             }
+        } ?: run {
+            data.reply("サブコマンドのパスが取得できませんでした。Botに問題が生じている可能性があります。")
+            return@onSubcommand
         }
         permissionable.permissions[cmdPath].runnable = value
         permissionable.save()

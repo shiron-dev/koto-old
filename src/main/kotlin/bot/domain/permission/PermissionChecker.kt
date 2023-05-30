@@ -7,9 +7,9 @@ import java.io.IOException
 import kotlin.reflect.KMutableProperty
 import kotlin.reflect.full.memberProperties
 
-fun permissionCheck(commandPath: CommandPath, userId: Long, guildId: Long): CommandPermission {
+fun permissionCheck(CommandPath: CommandPath, userId: Long, guildId: Long): CommandPermission {
     return permissionCheck(
-        commandPath,
+        CommandPath,
         userId,
         guildId,
         Bot.userDao.findByDiscordUserIdAndDiscordGuildIdOrMake(userId, guildId)
@@ -44,13 +44,13 @@ fun permissionCheck(commandPath: CommandPath, userId: Long, guildId: Long, user:
     return ret
 }
 
-private fun getRolePermissions(commandPath: CommandPath, userId: Long, guildId: Long): List<CommandPermission> {
+private fun getRolePermissions(CommandPath: CommandPath, userId: Long, guildId: Long): List<CommandPermission> {
     val roleIds = (Bot.jda.getGuildById(guildId)?.getMemberById(userId)?.roles?.toList()?.map { it.idLong }
         ?: throw IOException()) + listOf(Bot.jda.getGuildById(guildId)!!.publicRole.idLong)
     return Bot.roleDao.getListedRolesOrMake(roleIds, guildId)
-        .map { it.permissions[commandPath] } + listOf(
+        .map { it.permissions[CommandPath] } + listOf(
         DefaultPermissions.getDefaultPermission(
-            commandPath
+            CommandPath
         ) ?: DefaultPermissions.allFalse
     )
 }

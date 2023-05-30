@@ -9,7 +9,7 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 class VCReadCommand : Command() {
     override val commandName = "vcread"
     override val description = "VCでメッセージを読み上げます"
-    override val commandPath = CommandPath("koto.util.read")
+    override val commandPath = CommandPath.fromString("koto.util.read")
 
     override fun onSlashCommand(event: SlashCommandInteractionEvent, data: CommandEventData) {
         val members = event.guild!!.members
