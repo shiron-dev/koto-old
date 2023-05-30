@@ -7,9 +7,9 @@ import java.io.IOException
 import kotlin.reflect.KMutableProperty
 import kotlin.reflect.full.memberProperties
 
-fun permissionCheck(CommandPath: CommandPath, userId: Long, guildId: Long): CommandPermission {
+fun permissionCheck(commandPath: CommandPath, userId: Long, guildId: Long): CommandPermission {
     return permissionCheck(
-        CommandPath,
+        commandPath,
         userId,
         guildId,
         Bot.userDao.findByDiscordUserIdAndDiscordGuildIdOrMake(userId, guildId)
