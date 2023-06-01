@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a52630f8-0850-43a7-bc89-22d9bc20049a" name="変更" comment="chore: add DataSource">
+      <change beforePath="$PROJECT_DIR$/.idea/modules/dev.shiron.koto.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/dev.shiron.koto.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/bot/domain/permission/PermissionChecker.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/bot/domain/permission/PermissionChecker.kt" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="koto" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="koto" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="koto" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="koto" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="verification" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin Class" />
+        <option value="JUnit5 Test Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FormatOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="REMOTE">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="origin/feature/main" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="62b588044896dfc8a4e750262a685cfffab86b46" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="OptimizeOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
+  <component name="ProjectId" id="2NeFAph2ePkX1A4tS8XWeAvrq9l" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "last_directory_selection": "/Users/shiron/projects/koto-discord/src/test/kotlin/bot/command",
+    "last_opened_file_path": "/Users/shiron/projects/koto-discord",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "モジュール",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "rearrange.code.on.save": "true",
+    "settings.editor.selected.configurable": "actions.on.save",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/build/libs" />
+      <recent name="$PROJECT_DIR$/src/main/kotlin/bot/command/util/quote" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="bot.command.util.rec" />
+      <recent name="bot.domain" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="bot.command" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Gradle.koto-discord [test]">
+    <configuration name="koto-discord [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>false</ForceTestExec>
+      <method v="2" />
+    </configuration>
+    <configuration name="koto-discord [jar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="jar" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>false</ForceTestExec>
+      <method v="2" />
+    </configuration>
+    <configuration name="koto-discord [run]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="run" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>false</ForceTestExec>
+      <method v="2" />
+    </configuration>
+    <configuration name="koto-discord [test]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>false</ForceTestExec>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.koto-discord [test]" />
+        <item itemvalue="Gradle.koto-discord [run]" />
+        <item itemvalue="Gradle.koto-discord [build]" />
+        <item itemvalue="Gradle.koto-discord [jar]" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="アプリケーションレベル" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="デフォルトタスク">
+      <changelist id="a52630f8-0850-43a7-bc89-22d9bc20049a" name="変更" comment="" />
+      <created>1680016500397</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1680016500397</updated>
+      <workItem from="1680016502794" duration="3294000" />
+      <workItem from="1680087915617" duration="654000" />
+      <workItem from="1680088732311" duration="37000" />
+      <workItem from="1680180250423" duration="442000" />
+      <workItem from="1680187994975" duration="984000" />
+      <workItem from="1680189089927" duration="673000" />
+      <workItem from="1680189913495" duration="174000" />
+      <workItem from="1680190383983" duration="906000" />
+      <workItem from="1680193454887" duration="311000" />
+      <workItem from="1680196086599" duration="21000" />
+      <workItem from="1680196192759" duration="14000" />
+      <workItem from="1680196386473" duration="26000" />
+      <workItem from="1680599120153" duration="813000" />
+      <workItem from="1680600147929" duration="12000" />
+      <workItem from="1680600201649" duration="12000" />
+      <workItem from="1680600664134" duration="2619000" />
+      <workItem from="1680793882798" duration="4122000" />
+      <workItem from="1681127065660" duration="1954000" />
+      <workItem from="1681555154362" duration="1642000" />
+      <workItem from="1681580750927" duration="1601000" />
+      <workItem from="1681630781472" duration="14000" />
+      <workItem from="1681631795904" duration="2047000" />
+      <workItem from="1681789876959" duration="8514000" />
+      <workItem from="1681913860547" duration="2884000" />
+      <workItem from="1681918368726" duration="195000" />
+      <workItem from="1681918667205" duration="1644000" />
+      <workItem from="1681996499385" duration="101000" />
+      <workItem from="1682147481026" duration="5246000" />
+      <workItem from="1682238297601" duration="4898000" />
+      <workItem from="1682480248909" duration="1767000" />
+      <workItem from="1682487562437" duration="8261000" />
+      <workItem from="1685403741702" duration="1838000" />
+    </task>
+    <task id="LOCAL-00001" summary="fix: deploy error">
+      <created>1680016673213</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1680016673213</updated>
+    </task>
+    <task id="LOCAL-00002" summary="fix: gradle wrapper">
+      <created>1680017698852</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1680017698852</updated>
+    </task>
+    <task id="LOCAL-00003" summary="fix: gradle">
+      <created>1680018794709</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1680018794709</updated>
+    </task>
+    <task id="LOCAL-00004" summary="fix: add gradle-wrapper.jar">
+      <created>1680019723633</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1680019723633</updated>
+    </task>
+    <task id="LOCAL-00005" summary="feat: about command: add support server">
+      <created>1680088760723</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1680088760723</updated>
+    </task>
+    <task id="LOCAL-00006" summary="feat: DiceCommand">
+      <created>1680599792295</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1680599792295</updated>
+    </task>
+    <task id="LOCAL-00007" summary="feat: DiceCommand">
+      <created>1680600716950</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1680600716950</updated>
+    </task>
+    <task id="LOCAL-00008" summary="fix: #10&#10;&#10;引用機能にファイルの引用がない">
+      <created>1680605074464</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1680605074464</updated>
+    </task>
+    <task id="LOCAL-00009" summary="fix: #10&#10;&#10;引用機能にファイルの引用がない">
+      <created>1680605096119</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1680605096119</updated>
+    </task>
+    <task id="LOCAL-00010" summary="update: domain">
+      <created>1680794204643</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1680794204643</updated>
+    </task>
+    <task id="LOCAL-00011" summary="update: domain">
+      <created>1680794478169</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1680794478169</updated>
+    </task>
+    <task id="LOCAL-00012" summary="update: domain">
+      <created>1680794611673</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1680794611673</updated>
+    </task>
+    <task id="LOCAL-00013" summary="update: QuoteFunction.kt">
+      <created>1680796134341</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1680796134341</updated>
+    </task>
+    <task id="LOCAL-00014" summary="fix: QuoteFunction.kt&#10;&#10;fix: thread channel">
+      <created>1680797161684</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1680797161684</updated>
+    </task>
+    <task id="LOCAL-00015" summary="update: version format">
+      <created>1680797501985</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1680797501985</updated>
+    </task>
+    <task id="LOCAL-00016" summary="feat: update vc announcement">
+      <created>1681561608578</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1681561608578</updated>
+    </task>
+    <task id="LOCAL-00017" summary="feat: vc join and leave">
+      <created>1681907492801</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1681907492801</updated>
+    </task>
+    <task id="LOCAL-00018" summary="feat: vc join and leave">
+      <created>1681907733586</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1681907733586</updated>
+    </task>
+    <task id="LOCAL-00019" summary="feat: vc auto leave">
+      <created>1681907797863</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1681907797863</updated>
+    </task>
+    <task id="LOCAL-00020" summary="wip">
+      <created>1682162717369</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1682162717369</updated>
+    </task>
+    <task id="LOCAL-00021" summary="fix: aarch64">
+      <created>1682245846326</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1682245846326</updated>
+    </task>
+    <task id="LOCAL-00022" summary="feat: read file and url">
+      <created>1682249471499</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1682249471499</updated>
+    </task>
+    <task id="LOCAL-00023" summary="feat: read file and url">
+      <created>1682249509549</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1682249509549</updated>
+    </task>
+    <task id="LOCAL-00024" summary="feat: read file and url">
+      <created>1682249585736</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1682249585736</updated>
+    </task>
+    <task id="LOCAL-00025" summary="fix: vc name is null">
+      <created>1682519532203</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1682519532203</updated>
+    </task>
+    <task id="LOCAL-00026" summary="update: add junit5">
+      <created>1682519599867</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1682519599867</updated>
+    </task>
+    <task id="LOCAL-00027" summary="test: add CommandPath test and CommandPath.fromString(String)">
+      <created>1685407030389</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1685407030389</updated>
+    </task>
+    <task id="LOCAL-00028" summary="chore: add DataSource">
+      <created>1685407114908</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1685407114908</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/feature/main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="fix: deploy error" />
+    <MESSAGE value="fix: gradle wrapper" />
+    <MESSAGE value="fix: gradle" />
+    <MESSAGE value="fix: add gradle-wrapper.jar" />
+    <MESSAGE value="feat: about command: add support server" />
+    <MESSAGE value="feat: DiceCommand" />
+    <MESSAGE value="fix: #10&#10;&#10;引用機能にファイルの引用がない" />
+    <MESSAGE value="update: domain" />
+    <MESSAGE value="update: QuoteFunction.kt" />
+    <MESSAGE value="fix: QuoteFunction.kt&#10;&#10;fix: thread channel" />
+    <MESSAGE value="update: version format" />
+    <MESSAGE value="feat: update vc announcement" />
+    <MESSAGE value="feat: vc join and leave" />
+    <MESSAGE value="feat: vc auto leave" />
+    <MESSAGE value="wip" />
+    <MESSAGE value="fix: aarch64" />
+    <MESSAGE value="feat: read file and url" />
+    <MESSAGE value="fix: vc name is null" />
+    <MESSAGE value="update: add junit5" />
+    <MESSAGE value="test: add CommandPath test and CommandPath.fromString(String)" />
+    <MESSAGE value="chore: add DataSource" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: add DataSource" />
+  </component>
+</project>
